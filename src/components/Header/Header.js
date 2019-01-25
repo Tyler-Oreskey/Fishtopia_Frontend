@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Header.css'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 
@@ -7,22 +8,25 @@ class Header extends Component {
     return (
       <Navbar inverse collapseOnSelect>
         <Navbar.Header>
-          <Navbar.Brand>
-            <a>Fishtopia</a>
+          <Navbar.Brand className="title">
+            Fishtopia
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
             <NavItem eventKey={1}>
-            <NavLink to="/home">Home</NavLink>
+            <NavLink to="/home" style={{ textDecoration: 'none' }} className="links">Home</NavLink>
             </NavItem>
             <NavItem eventKey={2}>
-            <NavLink to="/about">About</NavLink>
+            <NavLink to="/about" style={{ textDecoration: 'none' }} className="links">About</NavLink>
+            </NavItem>
+            <NavItem eventKey={3}>
+            <NavLink to="/gmaps" style={{ textDecoration: 'none' }} className="links">Post a Fish</NavLink>
             </NavItem>
           </Nav>
           <Nav pullRight>
-            <NavItem eventKey={2} href="#">
+            <NavItem eventKey={4} className="logout">
               Logout
             </NavItem>
           </Nav>

@@ -1,8 +1,7 @@
 import React from "react";
-import './MapContainer.css'
 import { GoogleApiWrapper, Map } from "google-maps-react";
 
-export class MapContainer extends React.Component {
+export class Gmaps extends React.Component {
 
   state = { userLocation: { lat: 32, lng: 32 }, loading: true };
 
@@ -35,4 +34,4 @@ export class MapContainer extends React.Component {
 
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDysvmNwccnv7MkNHYRdLkfZc7KKtHYFkQ"
-})(MapContainer);
+})(Gmaps);
