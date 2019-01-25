@@ -5,6 +5,7 @@ import Home from './routes/Home'
 import About from './routes/About'
 import Gmaps from './routes/Gmaps'
 import Header from './components/Common/Header/Header'
+import Footer from './components/Common/Footer/Footer'
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
