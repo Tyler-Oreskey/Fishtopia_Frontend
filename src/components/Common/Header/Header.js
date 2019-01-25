@@ -25,6 +25,9 @@ class Header extends Component {
             <NavItem eventKey={3}>
             <NavLink to="/gmaps" style={{ textDecoration: 'none' }} className="links">Post a Fish</NavLink>
             </NavItem>
+            <NavItem eventKey={4}>
+            <NavLink to="/submitform" style={{ textDecoration: 'none' }} className="links">Submit Form</NavLink>
+            </NavItem>
           </Nav>
           <Nav pullRight>
             <NavItem eventKey={4} className="logout">
