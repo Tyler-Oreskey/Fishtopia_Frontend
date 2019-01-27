@@ -11,9 +11,12 @@ class SubmitForm extends Component {
 
     this.state = {
       form: {
-        first_name: '',
-        fish_caught: [],
-        fishing_type: [],
+        first_name: '', //autofilled from oauth
+        fish_id: null, //pulled in from fish api
+        fishing_type: '', //either fly or spin
+        year: [],
+        months: [],
+        day: [],
         fish_pic: '',
         comments: ''
       }
@@ -21,6 +24,9 @@ class SubmitForm extends Component {
   }
 
   render() {
+    //create months array
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
     return (
       <Container>
         <form>
@@ -46,6 +52,24 @@ class SubmitForm extends Component {
               <option value="select">select</option>
               <option value="other">Spin Fishing</option>
               <option value="other">Fly Fishing</option>
+            </FormControl>
+
+            <ControlLabel>Year</ControlLabel>
+            <FormControl componentClass="select" placeholder="select">
+              <option value="select">select</option>
+              <option value="other">...</option>
+            </FormControl>
+
+            <ControlLabel>Month</ControlLabel>
+            <FormControl componentClass="select" placeholder="select">
+              <option value="select">select</option>
+              <option value="other">{}</option>
+            </FormControl>
+
+            <ControlLabel>Day</ControlLabel>
+            <FormControl componentClass="select" placeholder="select">
+              <option value="select">select</option>
+              <option value="other">...</option>
             </FormControl>
 
             <ControlLabel>Picture Of Fish</ControlLabel>
