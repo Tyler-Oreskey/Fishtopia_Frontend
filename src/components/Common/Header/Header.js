@@ -19,21 +19,21 @@ class Header extends Component {
             <NavItem eventKey={1}>
             <NavLink to="/login" style={{ textDecoration: 'none' }} className="links">Login</NavLink>
             </NavItem>
-            <NavItem eventKey={1}>
-            <NavLink to="/home" style={{ textDecoration: 'none' }} className="links">About</NavLink>
-            </NavItem>
             <NavItem eventKey={2}>
-            <NavLink to="/gmaps" style={{ textDecoration: 'none' }} className="links">Post a Fish</NavLink>
+            <NavLink to="/home" style={{ textDecoration: 'none' }} className="links">Home</NavLink>
             </NavItem>
             <NavItem eventKey={3}>
-            <NavLink to="/submitform" style={{ textDecoration: 'none' }} className="links">Submit Form</NavLink>
+            <NavLink to="/gmaps" style={{ textDecoration: 'none' }} className="links">Post a Fish</NavLink>
             </NavItem>
             <NavItem eventKey={4}>
+            <NavLink to="/submitform" style={{ textDecoration: 'none' }} className="links">Submit Form</NavLink>
+            </NavItem>
+            <NavItem eventKey={5}>
             <NavLink to="/privacypolicy" style={{ textDecoration: 'none' }} className="links">Privacy Policy</NavLink>
             </NavItem>
           </Nav>
           <Nav pullRight>
-            <NavItem eventKey={4} className="logout">
+            <NavItem eventKey={6} className="logout">
               Logout
             </NavItem>
           </Nav>
