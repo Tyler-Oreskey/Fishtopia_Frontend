@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
-import { BrowserRouter } from 'react-router-dom';
-
 
 export default class Facebook extends Component {
   constructor(props){

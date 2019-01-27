@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { FormControl, Button, ControlLabel } from 'react-bootstrap'
-import { Container, Row, Col } from 'reactstrap'
+import { Container } from 'reactstrap'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import * as nameActions from '../../actions/nameActions'
 
 class SubmitForm extends Component {
   constructor (props, context){
@@ -19,13 +18,25 @@ class SubmitForm extends Component {
         day: [],
         fish_pic: '',
         comments: ''
-      }
+      },
+      months: [
+        {id: 0, month: 'January'},
+        {id: 1, month: 'February'},
+        {id: 2, month: 'March'},
+        {id: 3, month: 'April'},
+        {id: 4, month: 'May'},
+        {id: 5, month: 'June'},
+        {id: 6, month: 'July'},
+        {id: 7, month: 'August'},
+        {id: 8, month: 'September'},
+        {id: 9, month: 'October'},
+        {id: 10, month: 'November'},
+        {id: 11, month: 'December'}
+      ]
     }
   }
 
   render() {
-    //create months array
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
     return (
       <Container>
@@ -56,14 +67,14 @@ class SubmitForm extends Component {
 
             <ControlLabel>Year</ControlLabel>
             <FormControl componentClass="select" placeholder="select">
-              <option value="select">select</option>
-              <option value="other">...</option>
+            <option value="select">select</option>
+            <option value="other">{}</option>
             </FormControl>
 
             <ControlLabel>Month</ControlLabel>
             <FormControl componentClass="select" placeholder="select">
-              <option value="select">select</option>
-              <option value="other">{}</option>
+            <option value="select">select</option>
+            <option value="other">{}</option>
             </FormControl>
 
             <ControlLabel>Day</ControlLabel>

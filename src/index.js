@@ -10,7 +10,6 @@ import Home from './routes/Home';
 import Gmaps from './routes/Gmaps';
 import PrivacyPolicy from './routes/PrivacyPolicy'
 import Header from './components/Common/Header/Header';
-import Footer from './components/Common/Footer/Footer';
 import SubmitForm from './components/SubmitForm/SubmitForm';
 
 //css files
