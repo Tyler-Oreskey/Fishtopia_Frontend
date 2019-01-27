@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Header.css'
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 
 //create a header that will be used with router to hot load pages from routes

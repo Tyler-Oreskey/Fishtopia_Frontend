@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Facebook from '../components/FacebookLogin/FacebookLogin'
-import Google from '../components/GoogleLogin/GoogleLogin'
-
 
 class Login extends Component {
   render() {
