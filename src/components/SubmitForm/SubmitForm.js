@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { FormControl, Button, ControlLabel } from 'react-bootstrap'
 import { Container, Row, Col } from 'reactstrap'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import * as nameActions from '../../actions/nameActions'
 
 class SubmitForm extends Component {
   constructor (props, context){
@@ -15,32 +18,20 @@ class SubmitForm extends Component {
         comments: ''
       }
     }
-
-    this.onNameChange = this.onNameChange.bind(this)
   }
-
-  //handle name entry event
-  onNameChange(event){
-    const form = this.state.form
-    form.first_name = event.target.value
-      this.setState({
-        first_name: form.first_name
-      })
-    }
 
   render() {
     return (
       <Container>
         <form>
           <h1>Submit Your Fish!</h1>
-
             <ControlLabel>First Name</ControlLabel>
             <FormControl
               id="formControlsName"
               type="text"
               label="First Name"
               placeholder="Enter Name"
-              onChange={this.onNameChange}
+              onChange={this.onChange}
               value={this.state.value}
             />
 
@@ -68,11 +59,28 @@ class SubmitForm extends Component {
             <ControlLabel>Comments</ControlLabel>
             <FormControl componentClass="textarea" placeholder="textarea" />
 
-            <Button type="submit">Submit</Button>
+            <Button
+            type="submit"
+            onClick={this.onClickSave}
+            >
+            Submit</Button>
+
           </form>
         </Container>
     );
   }
 }
 
-export default SubmitForm;
+SubmitForm.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  first_name: PropTypes.array.isRequired
+}
+
+
+function mapStateToProps(state, ownProps){
+  return {
+    first_name: this.first_name
+  }
+}
+
+export default connect(mapStateToProps)(SubmitForm);

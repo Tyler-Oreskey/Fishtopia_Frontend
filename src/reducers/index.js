@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import form from './formReducer'
+import first_name from './formReducer'
 
 const rootReducer = combineReducers({
-  form
+  first_name
 })
 
 export default rootReducer;
