@@ -5,6 +5,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "google-maps-react": "^2.0.2",
+    "mdbreact": "^4.9.0",
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.7.0",

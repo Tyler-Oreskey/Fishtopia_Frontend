@@ -28,12 +28,9 @@ class Header extends Component {
             <NavItem eventKey={4}>
             <NavLink to="/submitform" style={{ textDecoration: 'none' }} className="links">Submit Form</NavLink>
             </NavItem>
-            <NavItem eventKey={5}>
-            <NavLink to="/privacypolicy" style={{ textDecoration: 'none' }} className="links">Privacy Policy</NavLink>
-            </NavItem>
           </Nav>
           <Nav pullRight>
-            <NavItem eventKey={6} className="logout">
+            <NavItem eventKey={5} className="logout">
               Logout
             </NavItem>
           </Nav>

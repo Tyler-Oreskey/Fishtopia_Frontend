@@ -7,6 +7,7 @@ import Home from './Home';
 import GoogleMaps from './GoogleMaps';
 import PrivacyPolicy from './PrivacyPolicy'
 import Header from '../components/Common/Header/Header';
+import Footer from '../components/Common/Footer/Footer';
 import SubmitForm from '../components/SubmitForm/SubmitForm';
 
 export default () =>
@@ -20,5 +21,6 @@ export default () =>
           <Route exact path="/submitform" component={SubmitForm} />
           <Route exact path="/privacypolicy" component={PrivacyPolicy} />
         </Switch>
+      <Footer />
     </div>
   </BrowserRouter>)
