@@ -110,23 +110,11 @@ class SubmitForm extends Component {
             <div className="submit">
               <Button type="submit" onClick={this.onClickSave}>Submit</Button>
             </div>
-            
+
           </form>
         </Container>
     );
   }
 }
 
-SubmitForm.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  first_name: PropTypes.array.isRequired
-}
-
-
-function mapStateToProps(state, ownProps){
-  return {
-    first_name: this.first_name
-  }
-}
-
-export default connect(mapStateToProps)(SubmitForm);
+export default SubmitForm;
