@@ -38,9 +38,16 @@ class SubmitForm extends Component {
 
   render() {
 
+    //map over months object and dynamically create selection items
     let listMonths = this.state.months.map(v => (
       <option value={v.id}>{v.name}</option>
     ));
+
+    //loop over an array to display days in a month
+    let listDays = []
+    for (let i = 1; i <= 31; i++) {
+      listDays.push(<option value={i}>{i}</option>)
+    }
 
     return (
       <Container className='form-container'>
@@ -82,7 +89,7 @@ class SubmitForm extends Component {
 
               <ControlLabel>Day:</ControlLabel>
                 <select className="date" value={this.state.value} onChange={this.handleChange}>
-                  {listMonths}
+                  {listDays}
                 </select>
             </div>
 
@@ -103,6 +110,7 @@ class SubmitForm extends Component {
             <div className="submit">
               <Button type="submit" onClick={this.onClickSave}>Submit</Button>
             </div>
+            
           </form>
         </Container>
     );
