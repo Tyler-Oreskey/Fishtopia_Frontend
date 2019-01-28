@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { FormControl, Button, ControlLabel } from 'react-bootstrap'
 import { Container } from 'reactstrap'
 import './SubmitForm.css'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 
 class SubmitForm extends Component {
   constructor (props, context){
