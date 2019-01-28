@@ -6,28 +6,19 @@ import { NavItem } from 'react-bootstrap';
 
 const Footer = () => {
   return (
-    <MDBFooter style={{'background-color': '#212121'}} className="font-small pt-4 mt-4">
+    <MDBFooter style={{'background-color': '#000000'}} className="font-small pt-4 mt-4">
       <MDBContainer fluid className="text-center text-md-left">
         <MDBRow>
-          <MDBCol md="6">
-            <h5 className="title">Footer Content</h5>
-          </MDBCol>
-          <MDBCol md="6">
-            <ul>
+            <ul className="footer-content">
               <li className="list-unstyled">
-              <NavItem>
-                <NavLink to="/privacypolicy" style={{ textDecoration: 'none', fontSize: '30' }} className="links">Privacy Policy</NavLink>
-              </NavItem>
+                <NavLink to="/privacypolicy" style={{ textDecoration: 'none', fontSize: '15px' }} className="links">Privacy Policy</NavLink>
               </li>
+              <div className="footer-copyright text-center py-3">
+                  &copy; {new Date().getFullYear()} Copyright: Fishtopia
+              </div>
             </ul>
-          </MDBCol>
         </MDBRow>
       </MDBContainer>
-      <div className="footer-copyright text-center py-3">
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright: Fishtopia
-        </MDBContainer>
-      </div>
     </MDBFooter>
   );
 }

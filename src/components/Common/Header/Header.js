@@ -7,7 +7,12 @@ import { NavLink } from 'react-router-dom'
 class Header extends Component {
   render() {
     return (
-      <Navbar inverse collapseOnSelect>
+      <Navbar
+      style={{
+        'background-color': '#000000',
+        'height': '70px'
+      }}
+      inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand className="title">
             Fishtopia
