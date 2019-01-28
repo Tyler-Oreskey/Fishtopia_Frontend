@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 import { GoogleComponent } from 'react-google-location'
 import { Container } from 'reactstrap'
-import './GoogleMaps.css'
+import './styles/GoogleMaps.css'
 
 const apiKey = 'AIzaSyDysvmNwccnv7MkNHYRdLkfZc7KKtHYFkQ'
 
