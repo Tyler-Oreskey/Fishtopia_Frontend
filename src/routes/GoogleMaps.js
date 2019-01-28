@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
+import {Gmaps, Marker} from 'react-gmaps';
 import { GoogleComponent } from 'react-google-location'
 import { Container } from 'reactstrap'
 import './styles/GoogleMaps.css'

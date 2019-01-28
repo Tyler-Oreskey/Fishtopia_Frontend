@@ -2,8 +2,7 @@ import React from "react";
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import './Footer.css';
 import { NavLink } from 'react-router-dom';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
-import { Container } from 'reactstrap'
+import { NavItem } from 'react-bootstrap';
 
 const Footer = () => {
   return (
