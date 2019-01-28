@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormControl, Button, ControlLabel } from 'react-bootstrap'
 import { Container } from 'reactstrap'
+import './SubmitForm.css'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -13,34 +14,38 @@ class SubmitForm extends Component {
         first_name: '', //autofilled from oauth
         fish_id: null, //pulled in from fish api
         fishing_type: '', //either fly or spin
-        year: [],
-        months: [],
-        day: [],
+        month: '',
+        day: '',
         fish_pic: '',
         comments: ''
       },
       months: [
-        {id: 0, month: 'January'},
-        {id: 1, month: 'February'},
-        {id: 2, month: 'March'},
-        {id: 3, month: 'April'},
-        {id: 4, month: 'May'},
-        {id: 5, month: 'June'},
-        {id: 6, month: 'July'},
-        {id: 7, month: 'August'},
-        {id: 8, month: 'September'},
-        {id: 9, month: 'October'},
-        {id: 10, month: 'November'},
-        {id: 11, month: 'December'}
-      ]
+        {id: 0, name: 'January'},
+        {id: 1, name: 'February'},
+        {id: 2, name: 'March'},
+        {id: 3, name: 'April'},
+        {id: 4, name: 'May'},
+        {id: 5, name: 'June'},
+        {id: 6, name: 'July'},
+        {id: 7, name: 'August'},
+        {id: 8, name: 'September'},
+        {id: 9, name: 'October'},
+        {id: 10, name: 'November'},
+        {id: 11, name: 'December'}
+      ],
     }
   }
 
   render() {
 
+    let listMonths = this.state.months.map(v => (
+      <option value={v.id}>{v.name}</option>
+    ));
+
     return (
-      <Container>
+      <Container className='form-container'>
         <form>
+
           <h1>Submit Your Fish!</h1>
             <ControlLabel>First Name</ControlLabel>
             <FormControl
@@ -52,54 +57,52 @@ class SubmitForm extends Component {
               value={this.state.value}
             />
 
-            <ControlLabel>Select Fish Caught</ControlLabel>
-            <FormControl componentClass="select" placeholder="select">
-              <option value="select">select</option>
-              <option value="other">...</option>
-            </FormControl>
+            <div className="spacing">
+              <ControlLabel>Select Fish Caught</ControlLabel>
+              <FormControl componentClass="select" placeholder="select">
+                <option value="select">select</option>
+                <option value="other">{}</option>
+              </FormControl>
+            </div>
 
-            <ControlLabel>Select Fishing Type</ControlLabel>
-            <FormControl componentClass="select" placeholder="select">
-              <option value="select">select</option>
-              <option value="other">Spin Fishing</option>
-              <option value="other">Fly Fishing</option>
-            </FormControl>
+            <div className="spacing">
+              <ControlLabel>Select Fishing Type</ControlLabel>
+              <FormControl componentClass="select" placeholder="select">
+                <option value="select">select</option>
+                <option value="other">Spin Fishing</option>
+                <option value="other">Fly Fishing</option>
+              </FormControl>
+            </div>
 
-            <ControlLabel>Year</ControlLabel>
-            <FormControl componentClass="select" placeholder="select">
-            <option value="select">select</option>
-            <option value="other">{}</option>
-            </FormControl>
+            <div className="date">
+              <ControlLabel>Month:</ControlLabel>
+                <select className="date" value={this.state.value} onChange={this.handleChange}>
+                  {listMonths}
+                </select>
 
-            <ControlLabel>Month</ControlLabel>
-            <FormControl componentClass="select" placeholder="select">
-            <option value="select">select</option>
-            <option value="other">{}</option>
-            </FormControl>
+              <ControlLabel>Day:</ControlLabel>
+                <select className="date" value={this.state.value} onChange={this.handleChange}>
+                  {listMonths}
+                </select>
+            </div>
 
-            <ControlLabel>Day</ControlLabel>
-            <FormControl componentClass="select" placeholder="select">
-              <option value="select">select</option>
-              <option value="other">...</option>
-            </FormControl>
+            <div className="spacing">
+              <ControlLabel>Picture Of Fish</ControlLabel>
+                <FormControl
+                  id="formControlsFile"
+                  type="file"
+                  label="File"
+                />
+            </div>
 
-            <ControlLabel>Picture Of Fish</ControlLabel>
-            <FormControl
-              id="formControlsFile"
-              type="file"
-              label="File"
-              help="Example block-level help text here."
-            />
+            <div className="spacing">
+              <ControlLabel>Comments</ControlLabel>
+              <FormControl componentClass="textarea" placeholder="comments" />
+            </div>
 
-            <ControlLabel>Comments</ControlLabel>
-            <FormControl componentClass="textarea" placeholder="textarea" />
-
-            <Button
-            type="submit"
-            onClick={this.onClickSave}
-            >
-            Submit</Button>
-
+            <div className="submit">
+              <Button type="submit" onClick={this.onClickSave}>Submit</Button>
+            </div>
           </form>
         </Container>
     );

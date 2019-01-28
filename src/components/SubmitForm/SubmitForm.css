@@ -1,0 +1,27 @@
+.date {
+  margin-top: 10px;
+  margin-right: 7px;
+  margin-left: 7px;
+}
+.spacing{
+  margin-top: 10px;
+}
+input[type=file] {
+  text-align: center;
+  margin: 0 auto;
+  overflow: hidden;
+  align-items: center;
+}
+.submit{
+  margin-top: 10px;
+}
+.form-container{
+  text-align: center;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 10px 0;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+  float: none;
+}
