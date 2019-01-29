@@ -4,19 +4,17 @@ import { Container } from 'reactstrap'
 import './SubmitForm.css'
 
 class SubmitForm extends Component {
-  constructor (props, context){
-    super(props)
+  constructor (){
+    super()
 
     this.state = {
-      form: {
-        first_name: '', //autofilled from oauth
-        fish: [], //pulled in from fish api
-        fishing_type: '', //either fly or spin
-        month: '',
-        day: '',
-        fish_pic: '',
-        comments: ''
-      },
+      first_name: '', //autofilled from oauth
+      fish: [], //pulled in from fish api
+      fishing_type: '', //either fly or spin
+      month: '',
+      day: '',
+      fish_pic: '',
+      comments: '',
       months: [
         {id: 0, name: 'January'},
         {id: 1, name: 'February'},
@@ -53,8 +51,8 @@ class SubmitForm extends Component {
     })
   }
 
-  render() {
 
+  render() {
     //map over months object and dynamically create selection items
     let listMonths = this.state.months.map(month => (
       <option key={month.id} value={month.id}>{month.name}</option>
@@ -65,10 +63,9 @@ class SubmitForm extends Component {
     for (let i = 1; i <= 31; i++) {
       listDays.push(<option key={i} value={i}>{i}</option>)
     }
-
-    // const fishList = this.state.fish.map(name => {
-    //   console.log(name.fish_name)
-    // })
+    let listFish = this.state.fish.map(fish => (
+      <option key={fish.id} value={fish.id}>{fish.fish_name}</option>
+    ));
 
 
     return (
@@ -89,7 +86,7 @@ class SubmitForm extends Component {
             <div className="spacing">
               <ControlLabel>Select Fish Caught</ControlLabel>
                 <select className="fish" value={this.state.value} onChange={this.handleChange}>
-                  {}
+                  {listFish}
                 </select>
             </div>
 
