@@ -5,3 +5,10 @@
   margin-top: 15px;
   margin-bottom: 15px;
 }
+.font-small{
+  background-color: #000000;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
