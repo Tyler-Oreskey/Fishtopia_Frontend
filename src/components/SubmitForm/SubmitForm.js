@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormControl, Button, ControlLabel } from 'react-bootstrap'
+import { FormControl, ControlLabel } from 'react-bootstrap'
 import { Container } from 'reactstrap'
 import './SubmitForm.css'
 
@@ -10,7 +10,7 @@ class SubmitForm extends Component {
     this.state = {
       form: {
         first_name: '', //autofilled from oauth
-        fish_id: null, //pulled in from fish api
+        fish: [], //pulled in from fish api
         fishing_type: '', //either fly or spin
         month: '',
         day: '',
@@ -34,18 +34,42 @@ class SubmitForm extends Component {
     }
   }
 
+  //get request to grab all the fish from databse
+  async componentDidMount() {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/fish`, {
+      method: 'GET',
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        'Accept': 'application/JSON',
+        'Content-Type': 'application/json'
+      }
+    })
+    const json = await response.json()
+    this.setState({
+      ...this.state,
+      fish: json
+    })
+  }
+
   render() {
 
     //map over months object and dynamically create selection items
-    let listMonths = this.state.months.map(v => (
-      <option value={v.id}>{v.name}</option>
+    let listMonths = this.state.months.map(month => (
+      <option key={month.id} value={month.id}>{month.name}</option>
     ));
 
     //loop over an array to display days in a month
     let listDays = []
     for (let i = 1; i <= 31; i++) {
-      listDays.push(<option value={i}>{i}</option>)
+      listDays.push(<option key={i} value={i}>{i}</option>)
     }
+
+    // const fishList = this.state.fish.map(name => {
+    //   console.log(name.fish_name)
+    // })
+
 
     return (
       <Container className='form-container'>
@@ -64,10 +88,9 @@ class SubmitForm extends Component {
 
             <div className="spacing">
               <ControlLabel>Select Fish Caught</ControlLabel>
-              <FormControl componentClass="select" placeholder="select">
-                <option value="select">select</option>
-                <option value="other">{}</option>
-              </FormControl>
+                <select className="fish" value={this.state.value} onChange={this.handleChange}>
+                  {}
+                </select>
             </div>
 
             <div className="spacing">

@@ -1,8 +1,7 @@
 import React from "react";
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import { MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import './Footer.css';
 import { NavLink } from 'react-router-dom';
-import { NavItem } from 'react-bootstrap';
 
 const Footer = () => {
   return (

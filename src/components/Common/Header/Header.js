@@ -9,7 +9,7 @@ class Header extends Component {
     return (
       <Navbar
       style={{
-        'background-color': '#000000',
+        backgroundColor: '#000000',
         'height': '70px'
       }}
       inverse collapseOnSelect>
