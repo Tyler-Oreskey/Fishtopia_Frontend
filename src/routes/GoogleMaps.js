@@ -49,7 +49,7 @@ class GoogleMaps extends Component {
 
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Fishtopia</Modal.Title>
           </Modal.Header>
           <div className="modal-form">
           <Modal.Body>

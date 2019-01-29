@@ -8,7 +8,6 @@ import Login from './Login';
 import Home from './Home';
 import GoogleMaps from './GoogleMaps';
 import PrivacyPolicy from './PrivacyPolicy'
-import SubmitForm from '../components/SubmitForm/SubmitForm';
 
 // //jwt decode import
 // import decode from 'jwt-decode'
@@ -54,7 +53,6 @@ class Routes extends Component {
                 <Header />
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/gmaps" component={GoogleMaps} />
-                <Route exact path="/submitform" component={SubmitForm} />
                 <Route exact path="/privacypolicy" component={PrivacyPolicy} />
                 <Footer />
               </Fragment>
