@@ -105,10 +105,6 @@ class SubmitForm extends Component {
               <FormControl componentClass="textarea" placeholder="comments" />
             </div>
 
-            <div className="submit">
-              <Button type="submit" onClick={this.onClickSave}>Submit</Button>
-            </div>
-
           </form>
         </Container>
     );

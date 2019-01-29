@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Gmaps, Marker} from 'react-gmaps';
 import { GoogleComponent } from 'react-google-location'
 import { Container } from 'reactstrap'
+import { Button, Modal } from 'react-bootstrap'
+import SubmitForm from '../components/SubmitForm/SubmitForm'
 import './styles/GoogleMaps.css'
 
 const apiKey = 'AIzaSyDysvmNwccnv7MkNHYRdLkfZc7KKtHYFkQ'
@@ -13,11 +15,14 @@ class GoogleMaps extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      show: false,
       place: 'Colorado, USA',
       lat: 39.5500507,
       lng: -105.7820674,
       zoom: 4
     };
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   onMapCreated(map) {
@@ -26,22 +31,41 @@ class GoogleMaps extends Component {
     });
   }
 
-  onDragEnd(e) {
-    console.log('onDragEnd', e);
+  handleClose() {
+    this.setState({ show: false });
   }
 
-  onCloseClick() {
-    console.log('onCloseClick');
-  }
-
-  onClick(e) {
-    console.log('onClick', e);
+  handleShow() {
+    this.setState({ show: true });
   }
 
   render() {
-    console.log(this.state.place);
 
     return (
+      <div>
+        <Button bsStyle="primary" onClick={this.handleShow}>
+          Post a Fish
+        </Button>
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <div className="modal-form">
+          <Modal.Body>
+            <SubmitForm />
+          </Modal.Body>
+          </div>
+          <Modal.Footer>
+            <Button bsStyle="secondary" onClick={this.handleClose}>
+              Close
+            </Button>
+            <Button bsStyle="primary" onClick={this.handleClose}>
+              Submit
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
         <Container className='map-container'>
         <div className="col-md-8">
           <div className='input'>
@@ -78,6 +102,7 @@ class GoogleMaps extends Component {
         </div>
         </div>
       </Container>
+      </div>
     );
   }
 }
