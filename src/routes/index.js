@@ -23,7 +23,7 @@ import PrivacyPolicy from './PrivacyPolicy'
 //   //decode the jwt token and check for expiration
 //   try {
 //     const { exp } = decode(refreshToken)
-//     if (exp < new Date.getTime() / 1000) {
+//     if (exp < Date.now() / 1000) {
 //       return false;
 //     }
 //     }catch (e) {

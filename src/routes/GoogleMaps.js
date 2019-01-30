@@ -25,26 +25,25 @@ class GoogleMaps extends Component {
     this.handleClose = this.handleClose.bind(this);
   }
 
-  onMapCreated(map) {
-    map.setOptions({
-      disableDefaultUI: true,
-    });
-  }
+    onMapCreated(map) {
+      map.setOptions({
+        disableDefaultUI: true,
+      });
+    }
 
-  handleClose() {
-    this.setState({ show: false });
-  }
+    handleClose() {
+      this.setState({ show: false });
+    }
 
-  handleShow() {
-    this.setState({ show: true });
-  }
+    handleShow() {
+      this.setState({ show: true });
+    }
 
   render() {
-
     return (
       <div>
         <Button bsStyle="primary" onClick={this.handleShow}>
-          Post a Fish
+          Create New Post
         </Button>
 
         <Modal show={this.state.show} onHide={this.handleClose}>

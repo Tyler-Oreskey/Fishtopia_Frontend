@@ -3,13 +3,15 @@ import { FormControl, ControlLabel } from 'react-bootstrap'
 import { Container } from 'reactstrap'
 import './SubmitForm.css'
 
+import TackleList from '../TackleList/TackleList'
+import FishList from '../FishList/FishList'
+
 class SubmitForm extends Component {
-  constructor (){
-    super()
+  constructor (props){
+    super(props)
 
     this.state = {
       first_name: '', //autofilled from oauth
-      fish: [], //pulled in from fish api
       fishing_type: '', //either fly or spin
       month: '',
       day: '',
@@ -32,26 +34,6 @@ class SubmitForm extends Component {
     }
   }
 
-  //get request to grab all the fish from databse
-  async componentDidMount() {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/fish`, {
-      method: 'GET',
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        'Accept': 'application/JSON',
-        'Content-Type': 'application/json'
-      }
-    })
-    const json = await response.json()
-    this.setState({
-      ...this.state,
-      fish: json
-    })
-  }
-
-
   render() {
     //map over months object and dynamically create selection items
     let listMonths = this.state.months.map(month => (
@@ -63,15 +45,10 @@ class SubmitForm extends Component {
     for (let i = 1; i <= 31; i++) {
       listDays.push(<option key={i} value={i}>{i}</option>)
     }
-    let listFish = this.state.fish.map(fish => (
-      <option key={fish.id} value={fish.id}>{fish.fish_name}</option>
-    ));
-
 
     return (
       <Container className='form-container'>
         <form>
-
           <h1>Submit Your Fish!</h1>
             <ControlLabel>First Name</ControlLabel>
             <FormControl
@@ -85,9 +62,9 @@ class SubmitForm extends Component {
 
             <div className="spacing">
               <ControlLabel>Select Fish Caught</ControlLabel>
-                <select className="fish" value={this.state.value} onChange={this.handleChange}>
-                  {listFish}
-                </select>
+              <select className="fish" value={this.state.value} onChange={this.handleChange}>
+                {}
+              </select>
             </div>
 
             <div className="spacing">
@@ -97,6 +74,20 @@ class SubmitForm extends Component {
                 <option value="other">Spin Fishing</option>
                 <option value="other">Fly Fishing</option>
               </FormControl>
+            </div>
+
+            <div className="dry">
+              <ControlLabel>Dry Flies:</ControlLabel>
+                <select className="dry" value={this.state.value} onChange={this.handleChange}>
+                  {}
+                </select>
+            </div>
+
+            <div className="wet">
+              <ControlLabel>Wet Flies:</ControlLabel>
+                <select className="wet" value={this.state.value} onChange={this.handleChange}>
+                  {}
+                </select>
             </div>
 
             <div className="date">

@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
+import { MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import FacebookLogin from 'react-facebook-login';
+import './styles/Login.css'
 
 export default class Login extends Component {
   constructor(props){
@@ -35,7 +39,35 @@ export default class Login extends Component {
          callback={this.responseFacebook} />
        )
       return(
-        <div>{fbContent}</div>
+        <div className="login-header">
+        <Navbar
+          style={{
+            backgroundColor: '#000000',
+            'height': '70px'
+          }}
+          inverse collapseOnSelect>
+            <Navbar.Header>
+              <Navbar.Brand className="title">
+                Fishtopia
+              </Navbar.Brand>
+              <Navbar.Toggle />
+            </Navbar.Header>
+            <Navbar.Collapse>
+            </Navbar.Collapse>
+          </Navbar>
+        {fbContent}
+        <MDBFooter className="font-small pt-4 mt-4">
+          <MDBContainer fluid className="text-center text-md-left">
+            <MDBRow>
+                <ul className="footer-content">
+                  <div className="footer-copyright text-center py-3">
+                      &copy; {new Date().getFullYear()} Copyright: Fishtopia
+                  </div>
+                </ul>
+            </MDBRow>
+          </MDBContainer>
+        </MDBFooter>
+      </div>
       )
     }
 }

@@ -1,0 +1,23 @@
+.links {
+  font-size: 20px;
+}
+.title {
+  font-size: 30px;
+}
+.logout {
+  font-size: 15px;
+}
+.footer-copyright{
+  color: #808080;
+}
+.footer-content{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.font-small{
+  background-color: #000000;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
