@@ -6,7 +6,7 @@ import Footer from '../components/Common/Footer/Footer';
 //route pages
 import Login from './Login';
 import Home from './Home';
-import GoogleMaps from './GoogleMaps';
+import MapContainer from './MapContainer';
 import PrivacyPolicy from './PrivacyPolicy'
 
 // //jwt decode import
@@ -52,7 +52,7 @@ class Routes extends Component {
               <Fragment>
                 <Header />
                 <Route exact path="/home" component={Home} />
-                <Route exact path="/gmaps" component={GoogleMaps} />
+                <Route exact path="/gmaps" component={MapContainer} />
                 <Route exact path="/privacypolicy" component={PrivacyPolicy} />
                 <Footer />
               </Fragment>

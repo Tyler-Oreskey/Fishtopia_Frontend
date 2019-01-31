@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
-import { NavLink } from 'react-router-dom'
+import { Navbar } from 'react-bootstrap'
 import { MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 import FacebookLogin from 'react-facebook-login';
 import './styles/Login.css'
