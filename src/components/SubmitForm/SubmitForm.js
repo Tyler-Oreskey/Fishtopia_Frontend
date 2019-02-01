@@ -50,6 +50,7 @@ class SubmitForm extends Component {
       ...this.state,
       fish: fishJson
     })
+    //get request to grab all the tackle from databse
     const tackleResponse = await fetch(`${process.env.REACT_APP_API_URL}/tackle`, {
       method: 'GET',
       mode: "cors",
@@ -158,7 +159,6 @@ class SubmitForm extends Component {
               <ControlLabel>Comments</ControlLabel>
               <FormControl componentClass="textarea" placeholder="comments" />
             </div>
-
           </form>
         </Container>
     );

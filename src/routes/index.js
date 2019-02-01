@@ -8,7 +8,6 @@ import Login from './Login';
 import Home from './Home';
 import MapContainer from './MapContainer';
 import PrivacyPolicy from './PrivacyPolicy';
-import SubmitForm from '../components/SubmitForm/SubmitForm'
 
 // //jwt decode import
 // import decode from 'jwt-decode'
@@ -55,7 +54,6 @@ class Routes extends Component {
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/gmaps" component={MapContainer} />
                 <Route exact path="/privacypolicy" component={PrivacyPolicy} />
-                <Route exact path="/submitform" component={SubmitForm} />
                 <Footer />
               </Fragment>
             </Switch>

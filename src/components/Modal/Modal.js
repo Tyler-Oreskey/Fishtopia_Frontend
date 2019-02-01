@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap'
-import SubmitForm from '../SubmitForm/SubmitForm'
 import './Modal.css'
 
 export default class ModalForm extends Component {
@@ -32,7 +31,6 @@ export default class ModalForm extends Component {
         </Modal.Header>
         <div className="modal-form">
         <Modal.Body>
-          <SubmitForm />
         </Modal.Body>
         </div>
         <Modal.Footer>

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import { GoogleComponent } from 'react-google-location'
 import { Container } from 'reactstrap'
-import { Button } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 import './styles/MapContainer.css'
+
+import SubmitForm from '../components/SubmitForm/SubmitForm'
 
 const apiKey = 'AIzaSyDysvmNwccnv7MkNHYRdLkfZc7KKtHYFkQ'
 // var google = window.google
@@ -13,7 +16,11 @@ class MapContainer extends Component {
   constructor(props) {
     super(props);
 
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+
     this.state = {
+      show: false,
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {},
@@ -80,17 +87,34 @@ class MapContainer extends Component {
     });
   }
 
+  //closes modal
+  handleClose() {
+    console.log(this.state.show);
+    this.setState({ show: false });
+  }
+
+  //shows modal
+  handleShow() {
+    console.log(this.state.show);
+    console.log("hello");
+    this.setState({ show: true });
+  }
+
+
+  windowHasOpened(props, e) {
+    const button = (<Button bsStyle="primary" onClick={this.handleShow}>Post a Fish</Button>);
+    ReactDOM.render(React.Children.only(button), document.getElementById("iwc"));
+  }
+
   render() {
     const { markers } = this.state;
     const { place, position } = markers[0];
     const { lat, lng } = position;
-    console.log(lat, lng);
-    return (
 
+    return (
       <div>
           <Container className="maps-container">
             <div className="col-md-8">
-
                   <div className="input">
                     <GoogleComponent
                       apiKey={apiKey}
@@ -120,7 +144,7 @@ class MapContainer extends Component {
                         }}
                         draggable={true}
                         icon={{
-                          url: 'http://maps.google.com/mapfiles/kml/shapes/fishing.png',
+                          url: 'https://maps.google.com/mapfiles/kml/shapes/fishing.png',
                           scaledSize: new this.props.google.maps.Size(30, 30), // scaled size
                           origin: new this.props.google.maps.Point(0,0), // origin
                           anchor: new this.props.google.maps.Point(0, 0)
@@ -133,21 +157,35 @@ class MapContainer extends Component {
 
                       <InfoWindow
                         marker={this.state.activeMarker}
-                        onOpen={this.windowHasOpened}
+                        onOpen={e => {this.windowHasOpened(this.props, e)}}
                         onClose={this.onInfoWindowClose}
                         visible={this.state.showingInfoWindow}
                       >
-                      <div>
-                        <Button bsStyle="primary" onClick={this.handleClick}>
-                          Post a Fish
-                        </Button>
-                      </div>
+                      <div id="iwc" />
                     </InfoWindow>
-
                   </Map>
+
               </div>
             </div>
           </Container>
+
+          <div className="modal-form">
+          <Modal show={this.state.show} onHide={this.handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Modal heading</Modal.Title>
+              </Modal.Header>
+              <Modal.Body><SubmitForm /></Modal.Body>
+              <Modal.Footer>
+                <Button bsStyle="secondary" onClick={this.handleClose}>
+                  Close
+                </Button>
+                <Button bsStyle="primary" onClick={this.handleClose}>
+                  Save Changes
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
+
         </div>
     );
   }
