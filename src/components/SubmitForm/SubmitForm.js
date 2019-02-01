@@ -3,9 +3,6 @@ import { FormControl, ControlLabel } from 'react-bootstrap'
 import { Container } from 'reactstrap'
 import './SubmitForm.css'
 
-import TackleList from '../TackleList/TackleList'
-import FishList from '../FishList/FishList'
-
 class SubmitForm extends Component {
   constructor (props){
     super(props)
@@ -35,6 +32,9 @@ class SubmitForm extends Component {
   }
 
   render() {
+    const ListFish = this.props.listFish
+
+
     //map over months object and dynamically create selection items
     let listMonths = this.state.months.map(month => (
       <option key={month.id} value={month.id}>{month.name}</option>
@@ -63,7 +63,7 @@ class SubmitForm extends Component {
             <div className="spacing">
               <ControlLabel>Select Fish Caught</ControlLabel>
               <select className="fish" value={this.state.value} onChange={this.handleChange}>
-                {}
+                {this.props.listFish}
               </select>
             </div>
 

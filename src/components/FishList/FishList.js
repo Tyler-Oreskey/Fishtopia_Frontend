@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import SubmitForm from '../SubmitForm/SubmitForm'
 
 class FishList extends Component {
   constructor(props){
@@ -31,9 +32,10 @@ class FishList extends Component {
     let listFish = this.state.fish.map(fish => (
       <option key={fish.id} value={fish.id}>{fish.fish_name}</option>
     ));
-
     return (
-      <div>{listFish}</div>
+      <div>
+        <SubmitForm listFish={listFish}/>
+      </div>
     );
   }
 }

@@ -59,7 +59,6 @@ class MapContainer extends Component {
      this.setState({
        markers: currentMarkers,
      });
-
   }
 
   //close marker window if map is clicked
