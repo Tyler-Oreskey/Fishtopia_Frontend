@@ -26,8 +26,7 @@ class Header extends Component {
             <NavLink to="/home" style={{ textDecoration: 'none' }} className="links">Home</NavLink>
             <NavLink to="/gmaps" style={{ textDecoration: 'none' }} className="links">Post a Fish</NavLink>
             <NavLink to="/submitform" style={{ textDecoration: 'none' }} className="links">Submit form</NavLink>
-            <NavLink to="/listfish" style={{ textDecoration: 'none' }} className="links">list fish</NavLink>
-
+            <NavLink to="/listfish" style={{ textDecoration: 'none' }} className="links">listFish</NavLink>
           <Nav pullRight>
             <NavItem eventKey={3} className="logout">
               Logout

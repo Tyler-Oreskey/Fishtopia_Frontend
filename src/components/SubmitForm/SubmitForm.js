@@ -14,6 +14,8 @@ class SubmitForm extends Component {
       day: '',
       fish_pic: '',
       comments: '',
+      fish: [],
+      tackle: [],
       months: [
         {id: 0, name: 'January'},
         {id: 1, name: 'February'},
@@ -31,9 +33,50 @@ class SubmitForm extends Component {
     }
   }
 
-  render() {
-    const ListFish = this.props.listFish
+  //get request to grab all the fish from databse
+  async componentDidMount() {
+    const fishResponse = await fetch(`${process.env.REACT_APP_API_URL}/fish`, {
+      method: 'GET',
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        'Accept': 'application/JSON',
+        'Content-Type': 'application/json'
+      }
+    })
+    const fishJson = await fishResponse.json()
+    this.setState({
+      ...this.state,
+      fish: fishJson
+    })
+    const tackleResponse = await fetch(`${process.env.REACT_APP_API_URL}/tackle`, {
+      method: 'GET',
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        'Accept': 'application/JSON',
+        'Content-Type': 'application/json'
+      }
+    })
+    const tackleJson = await tackleResponse.json()
+    this.setState({
+      ...this.state,
+      tackle: tackleJson
+    })
+  }
 
+  render() {
+    //map over fish array from API to dynamically create selection items
+    let listFish = this.state.fish.map(fish => (
+      <option key={fish.id} value={fish.id}>{fish.fish_name}</option>
+    ));
+
+    //map over tackle array from API to dynamically create selection items
+    let listTackle = this.state.tackle.map(tackle => (
+      <option key={tackle.id} value={tackle.id}>{tackle.name}</option>
+    ));
 
     //map over months object and dynamically create selection items
     let listMonths = this.state.months.map(month => (
@@ -60,10 +103,10 @@ class SubmitForm extends Component {
               value={this.state.value}
             />
 
-            <div className="spacing">
+            <div className="spacing form">
               <ControlLabel>Select Fish Caught</ControlLabel>
-              <select className="fish" value={this.state.value} onChange={this.handleChange}>
-                {this.props.listFish}
+              <select className="fish form-control" value={this.state.value} onChange={this.handleChange}>
+                {listFish}
               </select>
             </div>
 
@@ -78,26 +121,26 @@ class SubmitForm extends Component {
 
             <div className="dry">
               <ControlLabel>Dry Flies:</ControlLabel>
-                <select className="dry" value={this.state.value} onChange={this.handleChange}>
-                  {}
+                <select className="dry form-control" value={this.state.value} onChange={this.handleChange}>
+                  {listTackle}
                 </select>
             </div>
 
             <div className="wet">
               <ControlLabel>Wet Flies:</ControlLabel>
-                <select className="wet" value={this.state.value} onChange={this.handleChange}>
-                  {}
+                <select className="wet form-control" value={this.state.value} onChange={this.handleChange}>
+                  {listTackle}
                 </select>
             </div>
 
             <div className="date">
               <ControlLabel>Month:</ControlLabel>
-                <select className="date" value={this.state.value} onChange={this.handleChange}>
+                <select className="date form-control" value={this.state.value} onChange={this.handleChange}>
                   {listMonths}
                 </select>
 
               <ControlLabel>Day:</ControlLabel>
-                <select className="date" value={this.state.value} onChange={this.handleChange}>
+                <select className="date form-control" value={this.state.value} onChange={this.handleChange}>
                   {listDays}
                 </select>
             </div>
