@@ -107,6 +107,7 @@ class SubmitForm extends Component {
             <div className="spacing form">
               <ControlLabel>Select Fish Caught</ControlLabel>
               <select className="fish form-control" value={this.state.value} onChange={this.handleChange}>
+              <option value='' disabled selected>Select Fish</option>
                 {listFish}
               </select>
             </div>
@@ -114,34 +115,38 @@ class SubmitForm extends Component {
             <div className="spacing">
               <ControlLabel>Select Fishing Type</ControlLabel>
               <FormControl componentClass="select" placeholder="select">
-                <option value="select">select</option>
+                <option value='' disabled selected>Select Fishing Type</option>
                 <option value="other">Spin Fishing</option>
                 <option value="other">Fly Fishing</option>
               </FormControl>
             </div>
 
             <div className="dry">
-              <ControlLabel>Dry Flies:</ControlLabel>
+              <ControlLabel>Dry Fly</ControlLabel>
                 <select className="dry form-control" value={this.state.value} onChange={this.handleChange}>
+                <option value='' disabled selected>Select Dry Fly</option>
                   {listTackle}
                 </select>
             </div>
 
             <div className="wet">
-              <ControlLabel>Wet Flies:</ControlLabel>
+              <ControlLabel>Wet Fly</ControlLabel>
                 <select className="wet form-control" value={this.state.value} onChange={this.handleChange}>
+                <option value='' disabled selected>Select Wet Fly</option>
                   {listTackle}
                 </select>
             </div>
 
             <div className="date">
-              <ControlLabel>Month:</ControlLabel>
+              <ControlLabel>Month</ControlLabel>
                 <select className="date form-control" value={this.state.value} onChange={this.handleChange}>
+                <option value='' disabled selected>Select Month</option>
                   {listMonths}
                 </select>
 
-              <ControlLabel>Day:</ControlLabel>
+              <ControlLabel>Day</ControlLabel>
                 <select className="date form-control" value={this.state.value} onChange={this.handleChange}>
+                <option value='' disabled selected>Select Day</option>
                   {listDays}
                 </select>
             </div>
@@ -157,7 +162,7 @@ class SubmitForm extends Component {
 
             <div className="spacing">
               <ControlLabel>Comments</ControlLabel>
-              <FormControl componentClass="textarea" placeholder="comments" />
+              <FormControl componentClass="textarea" placeholder="comments 255 characters max" />
             </div>
           </form>
         </Container>
