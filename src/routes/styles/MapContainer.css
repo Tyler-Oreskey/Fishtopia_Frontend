@@ -1,0 +1,13 @@
+.col-md-8{
+  text-align: center;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 10px 0;
+  align-items: center;
+  justify-content: space-around;
+  float: none;
+}
+.map{
+  padding: 10px 0;
+  height: 550px;
+}
