@@ -169,12 +169,12 @@ class MapContainer extends Component {
             </div>
           </Container>
 
-          <div className="modal-form">
+          <div className="modal">
           <Modal show={this.state.show} onHide={this.handleClose}>
               <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>Fish Submission</Modal.Title>
               </Modal.Header>
-              <Modal.Body><SubmitForm /></Modal.Body>
+              <Modal.Body><SubmitForm/></Modal.Body>
               <Modal.Footer>
                 <Button bsStyle="secondary" onClick={this.handleClose}>
                   Close
@@ -185,7 +185,6 @@ class MapContainer extends Component {
               </Modal.Footer>
             </Modal>
           </div>
-
         </div>
     );
   }

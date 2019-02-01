@@ -11,13 +11,12 @@
   padding: 10px 0;
   height: 550px;
 }
-.modal-form {
+.modal {
   text-align: center;
   margin: 0 auto;
   overflow: hidden;
   padding: 10px 0;
   align-items: center;
   justify-content: center;
-  display: flex;
   float: none;
 }

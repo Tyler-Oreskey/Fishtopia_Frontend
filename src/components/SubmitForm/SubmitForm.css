@@ -1,8 +1,4 @@
-.date {
-  margin-top: 10px;
-  margin-right: 7px;
-  margin-left: 7px;
-}
+
 .spacing{
   margin-top: 10px;
 }
@@ -16,12 +12,10 @@ input[type=file] {
   margin-top: 10px;
 }
 .form-container{
-  text-align: center;
-  margin: 0 auto;
-  overflow: hidden;
-  padding: 10px 0;
-  align-items: center;
-  justify-content: center;
+  margin-top: 1px;
+  margin-left: 120px;
+  margin-left: 120px;
+  margin-bottom: 10px;
+  display: inline-block;
   display: flex;
-  float: none;
 }
