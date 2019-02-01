@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom'
 class Header extends Component {
   render() {
     return (
+      <div>
       <Navbar
       style={{
         backgroundColor: '#000000',
@@ -20,14 +21,8 @@ class Header extends Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Nav>
-            <NavItem eventKey={1}>
             <NavLink to="/home" style={{ textDecoration: 'none' }} className="links">Home</NavLink>
-            </NavItem>
-            <NavItem eventKey={2}>
             <NavLink to="/gmaps" style={{ textDecoration: 'none' }} className="links">Post a Fish</NavLink>
-            </NavItem>
-          </Nav>
           <Nav pullRight>
             <NavItem eventKey={3} className="logout">
               Logout
@@ -35,6 +30,7 @@ class Header extends Component {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      </div>
     );
   }
 }

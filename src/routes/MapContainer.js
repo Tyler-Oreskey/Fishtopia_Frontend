@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import {Gmaps, Marker, InfoWindow} from 'react-gmaps';
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import { GoogleComponent } from 'react-google-location'
 import { Container } from 'reactstrap'
-import { Button, Modal } from 'react-bootstrap'
-import SubmitForm from '../components/SubmitForm/SubmitForm'
-import './styles/GoogleMaps.css'
-
+import { Button } from 'react-bootstrap'
+import './styles/MapContainer.css'
 
 const apiKey = 'AIzaSyDysvmNwccnv7MkNHYRdLkfZc7KKtHYFkQ'
-const params = {v: '3.exp', key: apiKey};
-const google = window.google
 
 class MapContainer extends Component {
 
@@ -17,126 +13,139 @@ class MapContainer extends Component {
     super(props);
 
     this.state = {
-      isOpen: false,
-      markers: [],
-      show: false,
-      place: 'Colorado, USA',
-      lat: 39.5500507,
-      lng: -105.7820674,
-      zoom: 4
+      showingInfoWindow: false,
+      activeMarker: {},
+      selectedPlace: {},
 
+      markers: [
+        {
+          place: 'Colorado, USA',
+          position: {
+            lat: 39.5500507,
+            lng: -105.7820674,
+          }
+        }
+      ]
     };
-
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.searchLocation = this.searchLocation.bind(this)
   }
 
-  onMapCreated(map) {
-    map.setOptions({
-      disableDefaultUI: true,
-    });
-  }
-
-  searchLocation(e){
+  // grab users location after selection and set it to state
+  searchLocation = (e) => {
     this.setState({
-      ...this.state,
-      place: e,
-      lat: e.coordinates.lat,
-      lng: e.coordinates.lng,
+      markers: [
+        {
+          place: e,
+          position: {
+            lat: e.coordinates.lat,
+            lng: e.coordinates.lng,
+          },
+        }
+      ],
       zoom: 12,
     })
   }
 
-  handleClose() {
-    this.setState({ show: false });
+  //save marker lat and lng if user moves it
+  onMarkerMoved = (coord, index) => {
+     const { latLng } = coord;
+     const lat = latLng.lat();
+     const lng = latLng.lng();
+
+     this.setState(prevState => {
+      const markers = [...this.state.markers];
+      markers[index] = { ...markers[index], position: { lat, lng } };
+      return { markers };
+    });
+
   }
 
-  handleShow() {
-    this.setState({ show: true });
-  }
+  //close marker window if map is clicked
+  onMapClicked = (props) => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      })
+    }
+  };
 
-  handleToggleOpen() {
+  //show info window when marker is clicked
+  onMarkerClick = (props, marker, e) => {
     this.setState({
-      isOpen: true
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
     });
   }
 
   render() {
-
+    console.log(this.props);
+    const { markers } = this.state;
+    const { place, position } = markers[0];
+    const { lat, lng } = position;
     return (
+
       <div>
-        <Button bsStyle="primary" onClick={this.handleShow}>
-          Create New Post
-        </Button>
+          <Container className="maps-container">
+            <div className="col-md-8">
 
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Fishtopia</Modal.Title>
-          </Modal.Header>
-          <div className="modal-form">
-          <Modal.Body>
-            <SubmitForm />
-          </Modal.Body>
-          </div>
-          <Modal.Footer>
-            <Button bsStyle="secondary" onClick={this.handleClose}>
-              Close
-            </Button>
-            <Button bsStyle="primary" onClick={this.handleClose}>
-              Submit
-            </Button>
-          </Modal.Footer>
-        </Modal>
+                  <div className="input">
+                    <GoogleComponent
+                      apiKey={apiKey}
+                      language={'en'}
+                      country={'country:us'}
+                      coordinates={true}
+                      onChange={this.searchLocation}/>
+                  </div>
 
-        <Container className='map-container'>
-        <div className="col-md-8">
-          <div className='input'>
-            <GoogleComponent
-              apiKey={apiKey}
-              language={'en'}
-              country={'country:us'}
-              coordinates={true}
-              onChange={this.searchLocation}/>
-          </div>
+                <div className="map">
+                    <Map
+                      google={this.props.google}
+                      map={this.props.map}
+                      initialCenter={{
+                        lat,
+                        lng
+                      }}
+                      zoom={4}
+                      onClick={this.onMapClicked}
+                    >
+                    {this.state.markers.map((marker, index) =>
+                      <Marker
+                        position={{
+                          lat,
+                          lng,
+                        }}
+                        draggable={true}
+                        onDragend={(e, map, coord) => this.onMarkerMoved(coord, index)}
+                        onClick={this.onMarkerClick}
+                        name={marker.place}
+                      />
+                    )}
 
-          <div className='map'>
-            <Gmaps
-              width={'800px'}
-              height={'600px'}
-              lat={this.state.lat}
-              lng={this.state.lng}
-              zoom={this.state.zoom}
-              loadingMessage={'Fishtopia'}
-              params={params}
-              onMapCreated={this.onMapCreated}
-              >
+                      <InfoWindow
+                        marker={this.state.activeMarker}
+                        onOpen={this.windowHasOpened}
+                        onClose={this.onInfoWindowClose}
+                        visible={this.state.showingInfoWindow}
+                      >
+                      <div>
+                        <Button bsStyle="primary" onClick={this.handleClick}>
+                          Post a Fish
+                        </Button>
+                      </div>
+                    </InfoWindow>
 
-            <Marker
-              lat={this.state.lat}
-              lng={this.state.lng}
-              draggable={true}
-              onDragEnd={this.onDragEnd}
-              onClick={() => this.handleToggleOpen()}
-              icon={{
-                url: 'https://maps.google.com/mapfiles/kml/shapes/fishing.png',
-                size: {width: 60, height: 100},
-                anchor: {x: 15, y: 50},
-                scaledSize: {width: 30, height: 50},
-              }}>
-
-              <InfoWindow
-                onCloseClick={() => this.setState({isOpen: false})}>
-                  <h4>{this.state.place}</h4>
-              </InfoWindow>
-
-          </Marker>
-          </Gmaps>
+                  </Map>
+              </div>
+            </div>
+          </Container>
         </div>
-        </div>
-      </Container>
-      </div>
     );
   }
 }
-export default MapContainer
+const LoadingContainer = (props) => (
+  <div>Fishtopia!</div>
+)
+export default GoogleApiWrapper({
+  apiKey: (apiKey),
+})(MapContainer)

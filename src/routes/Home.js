@@ -19,6 +19,9 @@ class Home extends Component {
         <Carousel.Item>
           <img className='carousel-inner' width={900} height={500} alt="900x500" src={require('../photos/fisherman.jpg')} />
         </Carousel.Item>
+        <Carousel.Item>
+          <img className='carousel-inner' width={900} height={500} alt="900x500" src={require('../photos/bros.jpg')} />
+        </Carousel.Item>
       </Carousel>
     );
   }
