@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap'
 import './styles/MapContainer.css'
 
 const apiKey = 'AIzaSyDysvmNwccnv7MkNHYRdLkfZc7KKtHYFkQ'
+// var google = window.google
 
 class MapContainer extends Component {
 
@@ -50,12 +51,14 @@ class MapContainer extends Component {
      const { latLng } = coord;
      const lat = latLng.lat();
      const lng = latLng.lng();
+     const currentMarkers = this.state.markers.slice();
+     const currentPosition = currentMarkers[0].position;
+     currentPosition.lat = lat;
+     currentPosition.lng = lng;
 
-     this.setState(prevState => {
-      const markers = [...this.state.markers];
-      markers[index] = { ...markers[index], position: { lat, lng } };
-      return { markers };
-    });
+     this.setState({
+       markers: currentMarkers,
+     });
 
   }
 
@@ -79,10 +82,10 @@ class MapContainer extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { markers } = this.state;
     const { place, position } = markers[0];
     const { lat, lng } = position;
+    console.log(lat, lng);
     return (
 
       <div>
@@ -111,11 +114,18 @@ class MapContainer extends Component {
                     >
                     {this.state.markers.map((marker, index) =>
                       <Marker
+                        key={index}
                         position={{
                           lat,
                           lng,
                         }}
                         draggable={true}
+                        icon={{
+                          url: 'http://maps.google.com/mapfiles/kml/shapes/fishing.png',
+                          scaledSize: new this.props.google.maps.Size(30, 30), // scaled size
+                          origin: new this.props.google.maps.Point(0,0), // origin
+                          anchor: new this.props.google.maps.Point(0, 0)
+                        }}
                         onDragend={(e, map, coord) => this.onMarkerMoved(coord, index)}
                         onClick={this.onMarkerClick}
                         name={marker.place}
