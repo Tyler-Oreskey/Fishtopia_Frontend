@@ -15,7 +15,8 @@ class SubmitForm extends Component {
       fish_pic: '',
       comments: '',
       fish: [],
-      tackle: [],
+      wet: [],
+      dry: [],
       months: [
         {id: 0, name: 'January'},
         {id: 1, name: 'February'},
@@ -50,8 +51,8 @@ class SubmitForm extends Component {
       ...this.state,
       fish: fishJson
     })
-    //get request to grab all the tackle from databse
-    const tackleResponse = await fetch(`${process.env.REACT_APP_API_URL}/tackle`, {
+    //get request to grab all the wet flies from databse
+    const wetResponse = await fetch(`${process.env.REACT_APP_API_URL}/wet`, {
       method: 'GET',
       mode: "cors",
       cache: "no-cache",
@@ -61,10 +62,27 @@ class SubmitForm extends Component {
         'Content-Type': 'application/json'
       }
     })
-    const tackleJson = await tackleResponse.json()
+    const wetJson = await wetResponse.json()
     this.setState({
       ...this.state,
-      tackle: tackleJson
+      wet: wetJson
+    })
+
+    //get request to grab all the dry flies from databse
+    const dryResponse = await fetch(`${process.env.REACT_APP_API_URL}/dry`, {
+      method: 'GET',
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        'Accept': 'application/JSON',
+        'Content-Type': 'application/json'
+      }
+    })
+    const dryJson = await dryResponse.json()
+    this.setState({
+      ...this.state,
+      dry: dryJson
     })
   }
 
@@ -74,9 +92,14 @@ class SubmitForm extends Component {
       <option key={fish.id} value={fish.id}>{fish.fish_name}</option>
     ));
 
-    //map over tackle array from API to dynamically create selection items
-    let listTackle = this.state.tackle.map(tackle => (
-      <option key={tackle.id} value={tackle.id}>{tackle.name}</option>
+    //map over dry array from API to dynamically create selection items
+    let listDry = this.state.dry.map(dry => (
+      <option key={dry.id} value={dry.id}>{dry.name}</option>
+    ));
+
+    //map over wet array from API to dynamically create selection items
+    let listWet = this.state.wet.map(wet => (
+      <option key={wet.id} value={wet.id}>{wet.name}</option>
     ));
 
     //map over months object and dynamically create selection items
@@ -125,7 +148,7 @@ class SubmitForm extends Component {
               <ControlLabel>Dry Fly</ControlLabel>
                 <select className="dry form-control" value={this.state.value} onChange={this.handleChange}>
                 <option value='' disabled selected>Select Dry Fly</option>
-                  {listTackle}
+                  {listDry}
                 </select>
             </div>
 
@@ -133,7 +156,7 @@ class SubmitForm extends Component {
               <ControlLabel>Wet Fly</ControlLabel>
                 <select className="wet form-control" value={this.state.value} onChange={this.handleChange}>
                 <option value='' disabled selected>Select Wet Fly</option>
-                  {listTackle}
+                  {listWet}
                 </select>
             </div>
 
