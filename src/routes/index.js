@@ -7,7 +7,7 @@ import Footer from '../components/Common/Footer/Footer';
 import Login from './Login';
 import Home from './Home';
 import MapContainer from './MapContainer';
-import PrivacyPolicy from './PrivacyPolicy'
+import PrivacyPolicy from './PrivacyPolicy';
 
 // //jwt decode import
 // import decode from 'jwt-decode'

@@ -5,6 +5,7 @@
   "dependencies": {
     "google-maps-react": "^2.0.2",
     "jwt-decode": "^2.2.0",
+    "knex": "^0.16.3",
     "mdbreact": "^4.9.0",
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",

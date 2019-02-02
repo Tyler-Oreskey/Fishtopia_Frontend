@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import { GoogleComponent } from 'react-google-location'
 import { Container } from 'reactstrap'
-import { Button } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 import './styles/MapContainer.css'
 
+import store from '../Store'
+
+import SubmitForm from '../components/SubmitForm/SubmitForm'
+
 const apiKey = 'AIzaSyDysvmNwccnv7MkNHYRdLkfZc7KKtHYFkQ'
+// var google = window.google
 
 class MapContainer extends Component {
 
   constructor(props) {
     super(props);
 
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+
     this.state = {
+      show: store.getState().show,
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {},
-
       markers: [
         {
-          place: 'Colorado, USA',
           position: {
             lat: 39.5500507,
             lng: -105.7820674,
@@ -28,6 +36,41 @@ class MapContainer extends Component {
       ]
     };
   }
+
+  componentDidMount() {
+  // hook up callback from store when it's changed
+  this.unsubscribe = store.onChange(() => {
+      this.setState({
+        show: store.getState().show,
+      })
+    });
+    store.setState({ handleShow: this.handleShow });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  //get request to grab all the posts from database
+  async componentDidMount() {
+    const postResponse = await fetch(`${process.env.REACT_APP_API_URL}/users_post`, {
+      method: 'GET',
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        'Accept': 'application/JSON',
+        'Content-Type': 'application/json'
+      }
+    })
+    const postJson = await postResponse.json()
+    this.setState({
+      ...this.state,
+      post: postJson
+    })
+    console.log(postJson);
+  }
+
 
   // grab users location after selection and set it to state
   searchLocation = (e) => {
@@ -50,13 +93,14 @@ class MapContainer extends Component {
      const { latLng } = coord;
      const lat = latLng.lat();
      const lng = latLng.lng();
+     const currentMarkers = this.state.markers.slice();
+     const currentPosition = currentMarkers[0].position;
+     currentPosition.lat = lat;
+     currentPosition.lng = lng;
 
-     this.setState(prevState => {
-      const markers = [...this.state.markers];
-      markers[index] = { ...markers[index], position: { lat, lng } };
-      return { markers };
-    });
-
+     this.setState({
+       markers: currentMarkers,
+     });
   }
 
   //close marker window if map is clicked
@@ -78,17 +122,33 @@ class MapContainer extends Component {
     });
   }
 
-  render() {
-    console.log(this.props);
-    const { markers } = this.state;
-    const { place, position } = markers[0];
-    const { lat, lng } = position;
-    return (
+  //closes modal
+  handleClose() {
+    this.setState({ show: false });
+  }
 
+  //shows modal
+  handleShow() {
+    this.setState({ show: true });
+  }
+
+
+  windowHasOpened(props, e) {
+    const button = (<Button bsStyle="primary" onClick={this.handleShow}>Post a Fish</Button>);
+    ReactDOM.render(React.Children.only(button), document.getElementById("iwc"));
+  }
+
+  render() {
+    console.log('show', store.getState().show);
+    const showModal = store.getState().show
+    const { markers } = this.state;
+    const { position } = markers[0];
+    const { lat, lng } = position;
+
+    return (
       <div>
           <Container className="maps-container">
             <div className="col-md-8">
-
                   <div className="input">
                     <GoogleComponent
                       apiKey={apiKey}
@@ -111,11 +171,18 @@ class MapContainer extends Component {
                     >
                     {this.state.markers.map((marker, index) =>
                       <Marker
+                        key={index}
                         position={{
                           lat,
                           lng,
                         }}
                         draggable={true}
+                        icon={{
+                          url: 'https://maps.google.com/mapfiles/kml/shapes/fishing.png',
+                          scaledSize: new this.props.google.maps.Size(30, 30), // scaled size
+                          origin: new this.props.google.maps.Point(0,0), // origin
+                          anchor: new this.props.google.maps.Point(0, 0)
+                        }}
                         onDragend={(e, map, coord) => this.onMarkerMoved(coord, index)}
                         onClick={this.onMarkerClick}
                         name={marker.place}
@@ -124,21 +191,31 @@ class MapContainer extends Component {
 
                       <InfoWindow
                         marker={this.state.activeMarker}
-                        onOpen={this.windowHasOpened}
+                        onOpen={e => {this.windowHasOpened(this.props, e)}}
                         onClose={this.onInfoWindowClose}
                         visible={this.state.showingInfoWindow}
                       >
-                      <div>
-                        <Button bsStyle="primary" onClick={this.handleClick}>
-                          Post a Fish
-                        </Button>
-                      </div>
+                      <div id="iwc" />
                     </InfoWindow>
-
                   </Map>
+
               </div>
             </div>
           </Container>
+
+          <div className="modal">
+          <Modal show={this.state.show} onHide={this.handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Fish Submission</Modal.Title>
+              </Modal.Header>
+              <Modal.Body><SubmitForm position={position} show={this.state.show}/></Modal.Body>
+              <Modal.Footer>
+                <Button bsStyle="secondary" onClick={this.handleClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
         </div>
     );
   }
