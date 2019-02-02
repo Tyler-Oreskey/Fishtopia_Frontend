@@ -135,6 +135,16 @@ class SubmitForm extends Component {
               </select>
             </div>
 
+            <ControlLabel>Fish Size (inches)</ControlLabel>
+            <FormControl
+              id="formControlsFishSize"
+              type="number"
+              label="Fish Size"
+              placeholder="Fish Size"
+              onChange={this.onChange}
+              value={this.state.value}
+            />
+
             <div className="spacing">
               <ControlLabel>Select Fishing Type</ControlLabel>
               <FormControl componentClass="select" placeholder="select">
@@ -152,6 +162,16 @@ class SubmitForm extends Component {
                 </select>
             </div>
 
+            <ControlLabel>Dry Fly Size</ControlLabel>
+            <FormControl
+              id="formControlsDryFlySize"
+              type="number"
+              label="Dry Fly Size"
+              placeholder="Dry Fly Size"
+              onChange={this.onChange}
+              value={this.state.value}
+            />
+
             <div className="wet">
               <ControlLabel>Wet Fly</ControlLabel>
                 <select className="wet form-control" value={this.state.value} onChange={this.handleChange}>
@@ -159,6 +179,16 @@ class SubmitForm extends Component {
                   {listWet}
                 </select>
             </div>
+
+            <ControlLabel>Wet Fly Size</ControlLabel>
+            <FormControl
+              id="formControlsWetFlySize"
+              type="number"
+              label="Wet Fly Size"
+              placeholder="Wet Fly Size"
+              onChange={this.onChange}
+              value={this.state.value}
+            />
 
             <div className="date">
               <ControlLabel>Month</ControlLabel>

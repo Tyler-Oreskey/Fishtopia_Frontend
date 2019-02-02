@@ -24,10 +24,9 @@ class MapContainer extends Component {
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {},
-
+      post: [],
       markers: [
         {
-          place: 'Colorado, USA',
           position: {
             lat: 39.5500507,
             lng: -105.7820674,
@@ -36,6 +35,59 @@ class MapContainer extends Component {
       ]
     };
   }
+
+  //get request to grab all the posts from database
+  async componentDidMount() {
+    const postResponse = await fetch(`${process.env.REACT_APP_API_URL}/users_post`, {
+      method: 'GET',
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        'Accept': 'application/JSON',
+        'Content-Type': 'application/json'
+      }
+    })
+    const postJson = await postResponse.json()
+    this.setState({
+      ...this.state,
+      post: postJson
+    })
+    console.log(postJson);
+  }
+
+  //allow user to post to db
+//   async postFish(id) {
+//   const response = await fetch (`${process.env.REACT_APP_API_URL}/users_post`, {
+//     method: 'POST',
+//     mode: "cors",
+//     cache: "no-cache",
+//     credentials: "same-origin",
+//     headers: {
+//       'Accept': 'application/JSON',
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       users_id: ,
+//       fish_id: ,
+//       fish_size: ,
+//       fishing_type: ,
+//       dry_fly: ,
+//       dry_size: ,
+//       wet_fly: ,
+//       wet_size: ,
+//       month: ,
+//       day: ,
+//       fish_pic: ,
+//       comments: ,
+//       lat: ,
+//       lng: ,
+//     })
+//   })
+//   const json = await response.json()
+//   console.log(json)
+// }
+
 
   // grab users location after selection and set it to state
   searchLocation = (e) => {
@@ -108,7 +160,7 @@ class MapContainer extends Component {
 
   render() {
     const { markers } = this.state;
-    const { place, position } = markers[0];
+    const { position } = markers[0];
     const { lat, lng } = position;
 
     return (
@@ -179,7 +231,7 @@ class MapContainer extends Component {
                 <Button bsStyle="secondary" onClick={this.handleClose}>
                   Close
                 </Button>
-                <Button bsStyle="primary" onClick={this.handleClose}>
+                <Button bsStyle="primary" onClick={this.postFish}>
                   Save Changes
                 </Button>
               </Modal.Footer>
