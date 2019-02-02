@@ -8,15 +8,29 @@ class SubmitForm extends Component {
     super(props)
 
     this.state = {
-      first_name: '', //autofilled from oauth
+      //state for form
+      name: '', //autofilled from oauth
+      fish_name: '',
+      fish_size: '',
       fishing_type: '', //either fly or spin
+      dry_fly: '',
+      dry_size: '',
+      wet_fly: '',
+      wet_size: '',
       month: '',
       day: '',
       fish_pic: '',
       comments: '',
+      lat: this.props.position.lat,
+      lng: this.props.position.lng,
+
+      //state for api arrays
       fish: [],
       wet: [],
       dry: [],
+      post: [],
+
+      //state to create months array
       months: [
         {id: 0, name: 'January'},
         {id: 1, name: 'February'},
@@ -34,7 +48,7 @@ class SubmitForm extends Component {
     }
   }
 
-  //get request to grab all the fish from databse
+  // get request to grab all the fish from databse
   async componentDidMount() {
     const fishResponse = await fetch(`${process.env.REACT_APP_API_URL}/fish`, {
       method: 'GET',
@@ -86,10 +100,177 @@ class SubmitForm extends Component {
     })
   }
 
+//   // allow user to post to db
+//   async postFish(id) {
+//   const response = await fetch (`${process.env.REACT_APP_API_URL}/users_post`, {
+//     method: 'POST',
+//     mode: "cors",
+//     cache: "no-cache",
+//     credentials: "same-origin",
+//     headers: {
+//       'Accept': 'application/JSON',
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       fish_id: fish.id,
+//       fish_size: ,
+//       fishing_type: ,
+//       dry_fly: ,
+//       dry_size: ,
+//       wet_fly: ,
+//       wet_size: ,
+//       month: ,
+//       day: ,
+//       fish_pic: ,
+//       comments: ,
+//       lat: lat,
+//       lng: lng,
+//     })
+//   })
+//   const json = await response.json()
+//   console.log(json)
+// }
+
+//handle user name input
+handleName = (e) => {
+  if (!e.target.value) {
+    return ''
+  }else {
+    this.setState({
+      name: e.target.value
+    })
+  }
+  console.log('my name',this.state.name);
+}
+
+//handle fish caught selection
+handleFishCaught = (e) => {
+  if (!e.target.value) {
+    return ''
+  }else {
+    this.setState({
+      fish_name: e.target.value
+    })
+  }
+}
+
+//handle fish size
+handleFishSize = (e) => {
+  if (!e.target.value) {
+    return null
+  }else {
+    this.setState({
+      fish_size: e.target.value
+    })
+  }
+}
+
+//handle fishing type selection
+handleFishingType = (e) => {
+  if (!e.target.value) {
+    return ''
+  }else {
+    this.setState({
+      fishing_type: e.target.value
+    })
+  }
+}
+
+//handle dry fly selection
+handleDryFly = (e) => {
+  if (!e.target.value) {
+    return ''
+  }else {
+    this.setState({
+      dry_fly: e.target.value
+    })
+  }
+}
+
+//handle dry fly size selection
+handleDryFlySize = (e) => {
+  if (!e.target.value || typeof e.target.value !== 'number') {
+    return ''
+  }else {
+    this.setState({
+      dry_size: e.target.value
+    })
+  }
+}
+
+//handle wet fly selection
+handleWetFly = (e) => {
+  if (!e.target.value) {
+    return ''
+  }else {
+    this.setState({
+      wet_fly: e.target.value
+    })
+  }
+}
+
+//handle wet fly size selection
+handleWetFlySize = (e) => {
+  if (!e.target.value || typeof e.target.value !== 'number') {
+    return ''
+  }else {
+    this.setState({
+      wet_size: e.target.value
+    })
+  }
+}
+
+//handle month selection
+handleMonth = (e) => {
+  if (!e.target.value) {
+    return ''
+  }else {
+    this.setState({
+      month: e.target.value
+    })
+  }
+}
+
+//handle day selection
+handleDay = (e) => {
+  if (!e.target.value || typeof e.target.value !== 'number') {
+    return ''
+  }else {
+    this.setState({
+      day: e.target.value
+    })
+  }
+}
+
+//handle month selection
+handleFishPic = (e) => {
+  if (!e.target.value) {
+    return ''
+  }else {
+    this.setState({
+      fish_pic: e.target.value
+    })
+  }
+}
+
+//handle month selection
+handleComments = (e) => {
+  if (!e.target.value) {
+    return ''
+  }else {
+    this.setState({
+      comments: e.target.value
+    })
+  }
+}
+
   render() {
+
+    const position = this.props.position
+    const { lat, lng } = position
     //map over fish array from API to dynamically create selection items
     let listFish = this.state.fish.map(fish => (
-      <option key={fish.id} value={fish.id}>{fish.fish_name}</option>
+      <option key={fish.id} value={fish.fish_name}>{fish.fish_name}</option>
     ));
 
     //map over dry array from API to dynamically create selection items
@@ -113,6 +294,8 @@ class SubmitForm extends Component {
       listDays.push(<option key={i} value={i}>{i}</option>)
     }
 
+
+
     return (
       <Container className='form-container'>
         <form>
@@ -123,13 +306,13 @@ class SubmitForm extends Component {
               type="text"
               label="First Name"
               placeholder="Enter Name"
-              onChange={this.onChange}
-              value={this.state.value}
+              onChange={this.handleName}
+              value={this.state.name}
             />
 
             <div className="spacing form">
               <ControlLabel>Select Fish Caught</ControlLabel>
-              <select className="fish form-control" value={this.state.value} onChange={this.handleChange}>
+              <select className="fish form-control" value={this.state.value} onChange={this.handleFishCaught}>
               <option value='' disabled selected>Select Fish</option>
                 {listFish}
               </select>
@@ -141,22 +324,22 @@ class SubmitForm extends Component {
               type="number"
               label="Fish Size"
               placeholder="Fish Size"
-              onChange={this.onChange}
+              onChange={this.handleFishSize}
               value={this.state.value}
             />
 
             <div className="spacing">
               <ControlLabel>Select Fishing Type</ControlLabel>
-              <FormControl componentClass="select" placeholder="select">
+              <FormControl componentClass="select" placeholder="select" onChange={this.handleFishingType}>
                 <option value='' disabled selected>Select Fishing Type</option>
-                <option value="other">Spin Fishing</option>
-                <option value="other">Fly Fishing</option>
+                <option value='Spin Fishing'>Spin Fishing</option>
+                <option value='Fly Fishing'>Fly Fishing</option>
               </FormControl>
             </div>
 
             <div className="dry">
               <ControlLabel>Dry Fly</ControlLabel>
-                <select className="dry form-control" value={this.state.value} onChange={this.handleChange}>
+                <select className="dry form-control" value={this.state.value} onChange={this.handleDryFly}>
                 <option value='' disabled selected>Select Dry Fly</option>
                   {listDry}
                 </select>
@@ -168,13 +351,13 @@ class SubmitForm extends Component {
               type="number"
               label="Dry Fly Size"
               placeholder="Dry Fly Size"
-              onChange={this.onChange}
+              onChange={this.handleDryFlySize}
               value={this.state.value}
             />
 
             <div className="wet">
               <ControlLabel>Wet Fly</ControlLabel>
-                <select className="wet form-control" value={this.state.value} onChange={this.handleChange}>
+                <select className="wet form-control" value={this.state.value} onChange={this.handleWetFly}>
                 <option value='' disabled selected>Select Wet Fly</option>
                   {listWet}
                 </select>
@@ -186,19 +369,19 @@ class SubmitForm extends Component {
               type="number"
               label="Wet Fly Size"
               placeholder="Wet Fly Size"
-              onChange={this.onChange}
+              onChange={this.handleWetFlySize}
               value={this.state.value}
             />
 
             <div className="date">
               <ControlLabel>Month</ControlLabel>
-                <select className="date form-control" value={this.state.value} onChange={this.handleChange}>
+                <select className="date form-control" value={this.state.value} onChange={this.handleMonth}>
                 <option value='' disabled selected>Select Month</option>
                   {listMonths}
                 </select>
 
               <ControlLabel>Day</ControlLabel>
-                <select className="date form-control" value={this.state.value} onChange={this.handleChange}>
+                <select className="date form-control" value={this.state.value} onChange={this.handleDay}>
                 <option value='' disabled selected>Select Day</option>
                   {listDays}
                 </select>
@@ -210,12 +393,13 @@ class SubmitForm extends Component {
                   id="formControlsFile"
                   type="file"
                   label="File"
+                  onChange={this.handleFishPic}
                 />
             </div>
 
             <div className="spacing">
               <ControlLabel>Comments</ControlLabel>
-              <FormControl componentClass="textarea" placeholder="comments 255 characters max" />
+              <FormControl componentClass="textarea" onChange={this.handleComments} placeholder="comments 255 characters max" />
             </div>
           </form>
         </Container>

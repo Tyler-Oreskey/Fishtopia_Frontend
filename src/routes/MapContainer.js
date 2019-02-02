@@ -24,7 +24,6 @@ class MapContainer extends Component {
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {},
-      post: [],
       markers: [
         {
           position: {
@@ -55,38 +54,6 @@ class MapContainer extends Component {
     })
     console.log(postJson);
   }
-
-  //allow user to post to db
-//   async postFish(id) {
-//   const response = await fetch (`${process.env.REACT_APP_API_URL}/users_post`, {
-//     method: 'POST',
-//     mode: "cors",
-//     cache: "no-cache",
-//     credentials: "same-origin",
-//     headers: {
-//       'Accept': 'application/JSON',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       users_id: ,
-//       fish_id: ,
-//       fish_size: ,
-//       fishing_type: ,
-//       dry_fly: ,
-//       dry_size: ,
-//       wet_fly: ,
-//       wet_size: ,
-//       month: ,
-//       day: ,
-//       fish_pic: ,
-//       comments: ,
-//       lat: ,
-//       lng: ,
-//     })
-//   })
-//   const json = await response.json()
-//   console.log(json)
-// }
 
 
   // grab users location after selection and set it to state
@@ -226,7 +193,7 @@ class MapContainer extends Component {
               <Modal.Header closeButton>
                 <Modal.Title>Fish Submission</Modal.Title>
               </Modal.Header>
-              <Modal.Body><SubmitForm/></Modal.Body>
+              <Modal.Body><SubmitForm position={position}/></Modal.Body>
               <Modal.Footer>
                 <Button bsStyle="secondary" onClick={this.handleClose}>
                   Close
