@@ -11,7 +11,7 @@ class SubmitForm extends Component {
 
     this.state = {
       //state for form
-      users_id: 1, //hard coded for dev purposes
+      users_id: 1,
       name: '', //autofilled from oauth
       fish_id: null,
       fish_size: null,
@@ -150,6 +150,7 @@ class SubmitForm extends Component {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      users_id: this.state.users_id,
       name: this.state.name,
       fish_id: this.state.fish_id,
       fish_size: this.state.fish_size,
@@ -163,7 +164,7 @@ class SubmitForm extends Component {
       fish_pic: this.state.fish_pic,
       comments: this.state.comments,
       lat: this.state.lat,
-      lng: this.state.lat.lng
+      lng: this.state.lng
     })
   })
   const json = await response.json()
@@ -303,22 +304,24 @@ handleComments = (e) => {
 }
 
   render() {
-
-    console.log(this.state.users_id);
-    console.log(this.state.name);
-    console.log(this.state.fish_id);
-    console.log(this.state.fish_size);
-    console.log(this.state.fishing_type);
-    console.log(this.state.dry_fly);
-    console.log(this.state.dry_size);
-    console.log(this.state.wet_fly);
-    console.log(this.state.wet_size);
-    console.log(this.state.month);
-    console.log(this.state.day);
-    console.log(this.state.fish_pic);
-    console.log(this.state.comments);
     console.log(this.state.lat);
     console.log(this.state.lng);
+
+    // console.log(this.state.users_id);
+    // console.log(this.state.name);
+    // console.log(this.state.fish_id);
+    // console.log(this.state.fish_size);
+    // console.log(this.state.fishing_type);
+    // console.log(this.state.dry_fly);
+    // console.log(this.state.dry_size);
+    // console.log(this.state.wet_fly);
+    // console.log(this.state.wet_size);
+    // console.log(this.state.month);
+    // console.log(this.state.day);
+    // console.log(this.state.fish_pic);
+    // console.log(this.state.comments);
+    // console.log(this.state.lat);
+    // console.log(this.state.lng);
 
 
     const position = this.props.position
