@@ -198,9 +198,6 @@ class MapContainer extends Component {
                 <Button bsStyle="secondary" onClick={this.handleClose}>
                   Close
                 </Button>
-                <Button bsStyle="primary" onClick={this.postFish}>
-                  Save Changes
-                </Button>
               </Modal.Footer>
             </Modal>
           </div>

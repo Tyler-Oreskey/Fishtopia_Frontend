@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormControl, ControlLabel } from 'react-bootstrap'
+import { FormControl, ControlLabel, Button } from 'react-bootstrap'
 import { Container } from 'reactstrap'
 import './SubmitForm.css'
 
@@ -7,24 +7,28 @@ class SubmitForm extends Component {
   constructor (props){
     super(props)
 
+    this.onFormSubmit = this.onFormSubmit.bind(this)
+
     this.state = {
       //state for form
+      users_id: 1, //hard coded for dev purposes
       name: '', //autofilled from oauth
-      fish_id: '',
-      fish_size: '',
+      fish_id: null,
+      fish_size: null,
       fishing_type: '', //either fly or spin
       dry_fly: '',
-      dry_size: '',
+      dry_size: null,
       wet_fly: '',
-      wet_size: '',
+      wet_size: null,
       month: '',
-      day: '',
+      day: null,
       fish_pic: '',
       comments: '',
       lat: this.props.position.lat,
       lng: this.props.position.lng,
 
       //state for api arrays
+      users:[],
       fish: [],
       wet: [],
       dry: [],
@@ -98,38 +102,56 @@ class SubmitForm extends Component {
       ...this.state,
       dry: dryJson
     })
+
+    //get request to grab all the dry flies from databse
+    const usersResponse = await fetch(`${process.env.REACT_APP_API_URL}/users`, {
+      method: 'GET',
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        'Accept': 'application/JSON',
+        'Content-Type': 'application/json'
+      }
+    })
+    const usersJson = await usersResponse.json()
+    this.setState({
+      ...this.state,
+      users: usersJson
+    })
   }
 
-//   // allow user to post to db
-//   async postFish(id) {
-//   const response = await fetch (`${process.env.REACT_APP_API_URL}/users_post`, {
-//     method: 'POST',
-//     mode: "cors",
-//     cache: "no-cache",
-//     credentials: "same-origin",
-//     headers: {
-//       'Accept': 'application/JSON',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       fish_id: fish.id,
-//       fish_size: ,
-//       fishing_type: ,
-//       dry_fly: ,
-//       dry_size: ,
-//       wet_fly: ,
-//       wet_size: ,
-//       month: ,
-//       day: ,
-//       fish_pic: ,
-//       comments: ,
-//       lat: lat,
-//       lng: lng,
-//     })
-//   })
-//   const json = await response.json()
-//   console.log(json)
-// }
+  // allow user to post to db
+  async onFormSubmit(id) {
+  const response = await fetch (`${process.env.REACT_APP_API_URL}/users_post`, {
+    method: 'POST',
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      'Accept': 'application/JSON',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: this.state.name,
+      fish_id: this.state.fish_id,
+      fish_size: this.state.fish_size,
+      fishing_type: this.state.fishing_type,
+      dry_fly: this.state.dry_fly,
+      dry_size: this.state.dry_size,
+      wet_fly: this.state.wet_fly,
+      wet_size: this.state.wet_size,
+      month: this.state.month,
+      day: this.state.dat,
+      fish_pic: this.state.fish_pic,
+      comments: this.state.comments,
+      lat: this.state.lat,
+      lng: this.state.lat.lng
+    })
+  })
+  const json = await response.json()
+  console.log(json)
+}
 
 //handle user name input
 handleName = (e) => {
@@ -188,7 +210,7 @@ handleDryFly = (e) => {
 
 //handle dry fly size selection
 handleDryFlySize = (e) => {
-  if (!e.target.value || typeof e.target.value !== 'number') {
+  if (!e.target.value) {
     return ''
   }else {
     this.setState({
@@ -210,7 +232,7 @@ handleWetFly = (e) => {
 
 //handle wet fly size selection
 handleWetFlySize = (e) => {
-  if (!e.target.value || typeof e.target.value !== 'number') {
+  if (!e.target.value) {
     return ''
   }else {
     this.setState({
@@ -232,7 +254,7 @@ handleMonth = (e) => {
 
 //handle day selection
 handleDay = (e) => {
-  if (!e.target.value || typeof e.target.value !== 'number') {
+  if (!e.target.value) {
     return ''
   }else {
     this.setState({
@@ -265,8 +287,33 @@ handleComments = (e) => {
 
   render() {
 
+    console.log(this.state.users_id);
+    console.log(this.state.name);
+    console.log(this.state.fish_id);
+    console.log(this.state.fish_size);
+    console.log(this.state.fishing_type);
+    console.log(this.state.dry_fly);
+    console.log(this.state.dry_size);
+    console.log(this.state.wet_fly);
+    console.log(this.state.wet_size);
+    console.log(this.state.month);
+    console.log(this.state.day);
+    console.log(this.state.fish_pic);
+    console.log(this.state.comments);
+    console.log(this.state.lat);
+    console.log(this.state.lng);
+
+
     const position = this.props.position
     const { lat, lng } = position
+
+    //map over users array
+    let listUsers = this.state.users.map(users => (
+      <option key={users.id} value={users.id}>{users.id}</option>
+    ));
+
+    console.log('users', listUsers);
+
     //map over fish array from API to dynamically create selection items
     let listFish = this.state.fish.map(fish => (
       <option key={fish.id} value={fish.id}>{fish.fish_name}</option>
@@ -402,6 +449,7 @@ handleComments = (e) => {
               <ControlLabel>Comments</ControlLabel>
               <FormControl componentClass="textarea" onChange={this.handleComments} placeholder="comments 255 characters max" />
             </div>
+            <Button bsStyle="primary" onClick={this.onFormSubmit}>Submit</Button>
           </form>
         </Container>
     );
