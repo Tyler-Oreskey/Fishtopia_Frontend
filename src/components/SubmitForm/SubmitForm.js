@@ -32,7 +32,7 @@ class SubmitForm extends Component {
       fish: [],
       wet: [],
       dry: [],
-      post: [],
+      users_post: [],
 
       //state to create months array
       months: [
@@ -119,10 +119,27 @@ class SubmitForm extends Component {
       ...this.state,
       users: usersJson
     })
+
+    //get users_posts from databse
+    const usersPostsResponse = await fetch(`${process.env.REACT_APP_API_URL}/users_post`, {
+      method: 'GET',
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        'Accept': 'application/JSON',
+        'Content-Type': 'application/json'
+      }
+    })
+    const usersPostsJson = await usersPostsResponse.json()
+    this.setState({
+      ...this.state,
+      users_post: usersPostsJson
+    })
   }
 
   // allow user to post to db
-  async onFormSubmit(id) {
+  async onFormSubmit() {
   const response = await fetch (`${process.env.REACT_APP_API_URL}/users_post`, {
     method: 'POST',
     mode: "cors",
@@ -312,7 +329,10 @@ handleComments = (e) => {
       <option key={users.id} value={users.id}>{users.id}</option>
     ));
 
-    console.log('users', listUsers);
+    //map over fish array from API to dynamically create selection items
+    let listUsersPost = this.state.users_post.map(users_post => (
+      <option key={users_post.id} value={users_post.id}>{users_post.id}</option>
+    ));
 
     //map over fish array from API to dynamically create selection items
     let listFish = this.state.fish.map(fish => (
