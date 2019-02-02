@@ -10,7 +10,7 @@ class SubmitForm extends Component {
     this.state = {
       //state for form
       name: '', //autofilled from oauth
-      fish_name: '',
+      fish_id: '',
       fish_size: '',
       fishing_type: '', //either fly or spin
       dry_fly: '',
@@ -140,7 +140,6 @@ handleName = (e) => {
       name: e.target.value
     })
   }
-  console.log('my name',this.state.name);
 }
 
 //handle fish caught selection
@@ -149,7 +148,7 @@ handleFishCaught = (e) => {
     return ''
   }else {
     this.setState({
-      fish_name: e.target.value
+      fish_id: e.target.value
     })
   }
 }
@@ -270,7 +269,11 @@ handleComments = (e) => {
     const { lat, lng } = position
     //map over fish array from API to dynamically create selection items
     let listFish = this.state.fish.map(fish => (
-      <option key={fish.id} value={fish.fish_name}>{fish.fish_name}</option>
+      <option key={fish.id} value={fish.id}>{fish.fish_name}</option>
+    ));
+
+    let fishID = this.state.fish.map(fish => (
+      <option key={fish.id} value={fish.id}>{fish.id}</option>
     ));
 
     //map over dry array from API to dynamically create selection items
@@ -293,8 +296,6 @@ handleComments = (e) => {
     for (let i = 1; i <= 31; i++) {
       listDays.push(<option key={i} value={i}>{i}</option>)
     }
-
-
 
     return (
       <Container className='form-container'>
