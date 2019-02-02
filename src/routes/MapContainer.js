@@ -6,6 +6,8 @@ import { Container } from 'reactstrap'
 import { Button, Modal } from 'react-bootstrap'
 import './styles/MapContainer.css'
 
+import store from '../Store'
+
 import SubmitForm from '../components/SubmitForm/SubmitForm'
 
 const apiKey = 'AIzaSyDysvmNwccnv7MkNHYRdLkfZc7KKtHYFkQ'
@@ -20,7 +22,7 @@ class MapContainer extends Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      show: false,
+      show: store.getState().show,
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {},
@@ -33,6 +35,20 @@ class MapContainer extends Component {
         }
       ]
     };
+  }
+
+  componentDidMount() {
+  // hook up callback from store when it's changed
+  this.unsubscribe = store.onChange(() => {
+      this.setState({
+        show: store.getState().show,
+      })
+    });
+    store.setState({ handleShow: this.handleShow });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   //get request to grab all the posts from database
@@ -108,14 +124,11 @@ class MapContainer extends Component {
 
   //closes modal
   handleClose() {
-    console.log(this.state.show);
     this.setState({ show: false });
   }
 
   //shows modal
   handleShow() {
-    console.log(this.state.show);
-    console.log("hello");
     this.setState({ show: true });
   }
 
@@ -126,6 +139,8 @@ class MapContainer extends Component {
   }
 
   render() {
+    console.log('show', store.getState().show);
+    const showModal = store.getState().show
     const { markers } = this.state;
     const { position } = markers[0];
     const { lat, lng } = position;
@@ -193,7 +208,7 @@ class MapContainer extends Component {
               <Modal.Header closeButton>
                 <Modal.Title>Fish Submission</Modal.Title>
               </Modal.Header>
-              <Modal.Body><SubmitForm position={position}/></Modal.Body>
+              <Modal.Body><SubmitForm position={position} show={this.state.show}/></Modal.Body>
               <Modal.Footer>
                 <Button bsStyle="secondary" onClick={this.handleClose}>
                   Close
