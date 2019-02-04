@@ -42,3 +42,13 @@
   text-align: center;
   font-size: 30px;
 }
+.carousel-inner{
+  margin: auto;
+}
+.carousel{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 450px;
+}

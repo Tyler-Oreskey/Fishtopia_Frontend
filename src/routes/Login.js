@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Navbar } from 'react-bootstrap'
 import { MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import { Carousel, Row, Col, Grid, Button } from 'react-bootstrap';
+import { Container } from 'reactstrap'
 import FacebookLogin from 'react-facebook-login';
 import { Redirect } from 'react-router-dom';
 import Helmet from 'react-helmet'
@@ -63,12 +65,34 @@ export default class Login extends Component {
           <Helmet bodyAttributes={{style: 'background : linear-gradient(to right, #f0f2f0, #000c40)'}}/>
             <div className="fishtopia-intro">
               <h1 className="big-text">Fishtopia</h1>
-              <h2 className="small-text">Where Fishermen Catch Their Dream Fish</h2>
+              <h2 className="small-text">Where Fishermen Catch Their Dreams</h2>
               <p className="login-text">Please login with Facebook to get started</p>
             </div>
             <div className="fbButton">
               {fbContent}
             </div>
+          </div>
+          <div>
+          <Container>
+              <Carousel
+                className="carousel"
+                style={{
+                  'background': 'linear-gradient(to right, #200122, #6f0000)',
+                }}>
+                <Carousel.Item>
+                   <img className='carousel-inner' width={900} height={500} alt="900x500" src={require('../photos/dad.jpg')} />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img className='carousel-inner' width={900} height={500} alt="900x500" src={require('../photos/rob.jpg')} />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img className='carousel-inner' width={900} height={500} alt="900x500" src={require('../photos/tyler1.jpg')} />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img className='carousel-inner' width={900} height={500} alt="900x500" src={require('../photos/tyler2.jpg')} />
+                </Carousel.Item>
+              </Carousel>
+          </Container>
           </div>
         <MDBFooter className="font-small pt-4 mt-4">
           <MDBContainer fluid className="text-center text-md-left">
