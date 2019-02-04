@@ -8,8 +8,7 @@
   float: none;
 }
 .map{
-  padding: 10px 0;
-  height: 550px;
+  height: 475px;
 }
 .modal {
   text-align: center;
@@ -19,4 +18,29 @@
   align-items: center;
   justify-content: center;
   float: none;
+}
+#map{
+  float: right;
+}
+.steps{
+  margin-right: 2px;
+  margin-left: 20px;
+  margin-top: 10px;
+  width: 110%;
+  height: 475px
+}
+.maps-container{
+  margin-right: 20px;
+}
+.post-title{
+  margin-top: 2px;
+  color: white;
+  text-align: center;
+}
+li{
+  color: white;
+  font-size: 20px;
+}
+.userPostButton{
+  margin-left: 7px;
 }

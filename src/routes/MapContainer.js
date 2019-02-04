@@ -154,9 +154,35 @@ class MapContainer extends Component {
     return (
       <div>
       <Helmet bodyAttributes={{style: 'background : linear-gradient(to right, #141e30, #243b55)'}}/>
+        <div className="col-md-4">
+          <Container className="steps"
+            style={{
+              'background': 'linear-gradient(to right, #283048, #859398)'
+            }}>
+          >
+
+
+          <h1 className="post-title">Posting</h1>
+            <ol>
+              <li>Start by typing a location in the location bar.</li>
+              <li>Once you've clicked on a location the map will zoom in on your chosen area.</li>
+              <li>From here you can move the marker anywhere you like.</li>
+              <li>Once you are satisfied with your marker placement, click on the fish marker.</li>
+              <li>A submit form will open up and you just fill in the fields.</li>
+              <li>To view other users posts click
+              <Button bsStyle="primary"
+                className="userPostButton"
+                onClick={this.getUserPlacesHandler}>
+                here
+              </Button>
+              </li>
+            </ol>
+
+          </Container>
+        </div>
+
           <Container className="maps-container">
-          <Button bsStyle="primary" onClick={this.getUserPlacesHandler}>View all posts</Button>
-            <div className="col-md-8">
+            <div className="col-md-8" id="map">
                   <div className="input">
                     <GoogleComponent
                       apiKey={apiKey}
