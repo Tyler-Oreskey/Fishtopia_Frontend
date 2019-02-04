@@ -152,7 +152,7 @@ class MapContainer extends Component {
       <Marker
         key={userPlace.id}
         position={userPlace.position}
-        draggable={true}
+        draggable={false}
         icon={{
           url: 'https://maps.google.com/mapfiles/kml/shapes/fishing.png',
           scaledSize: new this.props.google.maps.Size(30, 30), // scaled size
@@ -161,8 +161,6 @@ class MapContainer extends Component {
         }}
       />
     ))
-
-    console.log('usersmarkers',usersMarkers);
 
 
     return (
@@ -226,7 +224,7 @@ class MapContainer extends Component {
                         }}
                         draggable={true}
                         icon={{
-                          url: 'https://maps.google.com/mapfiles/kml/shapes/fishing.png',
+                          url: 'http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png',
                           scaledSize: new this.props.google.maps.Size(30, 30), // scaled size
                           origin: new this.props.google.maps.Point(0,0), // origin
                           anchor: new this.props.google.maps.Point(0, 0)
