@@ -2,6 +2,7 @@
   font-size: 20px;
 }
 .title {
+  font-family: 'Acme', sans-serif;
   font-size: 30px;
 }
 .logout {
@@ -26,12 +27,14 @@
   text-align: center;
 }
 .big-text{
+  font-family: 'Acme', sans-serif;
   padding-top: 0px;
   margin: 0 auto;
   text-align: center;
   font-size: 80px;
 }
 .small-text{
+  font-family: 'Quattrocento', serif;
   padding-top: 5px;
   margin: 0 auto;
   text-align: center;

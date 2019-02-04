@@ -33,11 +33,13 @@
   margin-right: 20px;
 }
 .post-title{
+  font-family: 'Acme', sans-serif;
   margin-top: 2px;
   color: white;
   text-align: center;
 }
 li{
+  font-family: 'Quattrocento', serif;
   color: white;
   font-size: 20px;
 }
