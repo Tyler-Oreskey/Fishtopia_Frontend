@@ -241,7 +241,8 @@ class MapContainer extends Component {
           <Modal show={this.state.show} onHide={this.handleClose}>
               <Modal.Header closeButton
               style={{
-                'background': 'linear-gradient(to right, #232526, #414345)'
+                'background': 'linear-gradient(to right, #232526, #414345)',
+                'color': 'white'
               }}>
                 <Modal.Title>Fish Submission</Modal.Title>
               </Modal.Header>
