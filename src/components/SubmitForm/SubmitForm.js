@@ -16,7 +16,7 @@ class SubmitForm extends Component {
       //state for form
       users_id: 1,
       name: '', //autofilled from oauth
-      fish_id: null,
+      fish_name: '',
       fish_size: null,
       fishing_type: '', //either fly or spin
       dry_fly: '',
@@ -147,7 +147,7 @@ class SubmitForm extends Component {
     body: JSON.stringify({
       users_id: this.state.users_id,
       name: this.state.name,
-      fish_id: this.state.fish_id,
+      fish_name: this.state.fish_name,
       fish_size: this.state.fish_size,
       fishing_type: this.state.fishing_type,
       dry_fly: this.state.dry_fly,
@@ -156,7 +156,6 @@ class SubmitForm extends Component {
       wet_size: this.state.wet_size,
       month: this.state.month,
       day: this.state.dat,
-      fish_pic: this.state.fish_pic,
       comments: this.state.comments,
       lat: this.state.lat,
       lng: this.state.lng
@@ -202,7 +201,7 @@ handleFishCaught = (e) => {
     return ''
   }else {
     this.setState({
-      fish_id: e.target.value
+      fish_name: e.target.value
     })
   }
 }
@@ -375,7 +374,7 @@ handleComments = (e) => {
             <FormControl
               style={{'margin-top': '10px'}}
               id="formControlsFishSize"
-              type="number"
+              type="number" min="0"
               label="Fish Size"
               placeholder="Fish Size (inches)"
               onChange={this.handleFishSize}
@@ -400,7 +399,7 @@ handleComments = (e) => {
             <FormControl
               style={{'margin-top': '10px'}}
               id="formControlsDryFlySize"
-              type="number"
+              type="number" min="0"
               label="Dry Fly Size"
               placeholder="Dry Fly Size"
               onChange={this.handleDryFlySize}
@@ -417,7 +416,7 @@ handleComments = (e) => {
             <FormControl
               style={{'margin-top': '10px'}}
               id="formControlsWetFlySize"
-              type="number"
+              type="number" min="0"
               label="Wet Fly Size"
               placeholder="Wet Fly Size"
               onChange={this.handleWetFlySize}
