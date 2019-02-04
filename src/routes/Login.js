@@ -1,29 +1,27 @@
 import React, {Component} from 'react';
 import { Navbar } from 'react-bootstrap'
 import { MDBContainer, MDBRow, MDBFooter } from "mdbreact";
-import { Carousel, Row, Col, Grid, Button } from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap';
 import { Container } from 'reactstrap'
 import FacebookLogin from 'react-facebook-login';
 import { Redirect } from 'react-router-dom';
 import Helmet from 'react-helmet'
 import './styles/Login.css'
 
-import store from '../Store'
-
 export default class Login extends Component {
   constructor(props){
     super(props)
     this.state = {
-      isLoggedIn: store.getState().isLoggedIn,
-      userID: store.getState().userID,
-      name: store.getState().name,
-      picture: store.getState().name
+      isLoggedIn: false,
+      userID: '',
+      name: '',
+      picture: ''
     }
   }
 
   responseFacebook = response => {
     console.log(response);
-    store.setState({
+    this.setState({
       isLoggedIn: true,
       userId: response.userID,
       name: response.name,
@@ -33,10 +31,10 @@ export default class Login extends Component {
 
 
   render() {
-    //
-    // if (this.state.isLoggedIn === true && this.state.name !== undefined) {
-    //   return <Redirect to='/home' />
-    // }
+
+    if (this.state.isLoggedIn === true && this.state.name !== undefined) {
+      return <Redirect to='/home'/>
+    }
 
       let fbContent;
         fbContent = (

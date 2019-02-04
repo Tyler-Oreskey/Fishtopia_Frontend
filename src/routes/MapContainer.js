@@ -178,8 +178,7 @@ class MapContainer extends Component {
               <li>Once you've clicked on a location the map will zoom in on your chosen area.</li>
               <li>From here you can move the marker anywhere you like.</li>
               <li>Once you are satisfied with your marker placement, click on the fish marker.</li>
-              <li>A submit form will open up and you just fill in the fields.</li>
-              <li>To view other users posts click</li>
+              <li>A submit form will open up and you just fill in the fields and click submit.</li>
             </ol>
 
           </Container>
@@ -270,9 +269,6 @@ class MapContainer extends Component {
     );
   }
 }
-const LoadingContainer = (props) => (
-  <div>Fishtopia!</div>
-)
 export default GoogleApiWrapper({
   apiKey: (apiKey),
 })(MapContainer)

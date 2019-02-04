@@ -164,10 +164,11 @@ class SubmitForm extends Component {
 
   const json = await response.json()
   console.log(json)
+  this.onSubmitSuccess(response)
 }
 
 //give user success notification if successful post
-onSubmitSucess = (response) => {
+onSubmitSuccess = (response) => {
   if (response.status >= 200 && response.status <= 299) {
     this.handleClose()
     window.location.reload();

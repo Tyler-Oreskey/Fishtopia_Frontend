@@ -3,10 +3,6 @@
 */
 let state = {
   show: false,
-  isLoggedIn: false,
-  userId: '',
-  name: '',
-  picture: ''
 };
 
 let listeners = [];

@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-import { Carousel, Row, Col, Grid, Button } from 'react-bootstrap';
+import { Carousel, Button } from 'react-bootstrap';
 import { Container } from 'reactstrap'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { Redirect } from 'react-router-dom'
 import './styles/Home.css'
 
-import store from '../Store'
-
 class Home extends Component {
 
   constructor(props){
     super(props)
     this.state = {
-      name: store.getState().name,
       toGooglePage: false
     }
   }
@@ -25,7 +22,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log('store state', store.getState());
 
     if (this.state.toGooglePage === true) {
       return <Redirect to='/gmaps' />
