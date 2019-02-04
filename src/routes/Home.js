@@ -6,14 +6,18 @@ import Helmet from 'react-helmet'
 import { Redirect } from 'react-router-dom'
 import './styles/Home.css'
 
+import store from '../Store'
+
 class Home extends Component {
 
   constructor(props){
     super(props)
     this.state = {
+      name: store.getState().name,
       toGooglePage: false
     }
   }
+
 
   onRedirect = () => {
     this.setState({
@@ -22,6 +26,7 @@ class Home extends Component {
   }
 
   render() {
+    console.log('store state', store.getState());
 
     if (this.state.toGooglePage === true) {
       return <Redirect to='/gmaps' />

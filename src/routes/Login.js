@@ -8,20 +8,22 @@ import { Redirect } from 'react-router-dom';
 import Helmet from 'react-helmet'
 import './styles/Login.css'
 
+import store from '../Store'
+
 export default class Login extends Component {
   constructor(props){
     super(props)
     this.state = {
-      isLoggedIn: false,
-      userID: '',
-      name: '',
-      picture: ''
+      isLoggedIn: store.getState().isLoggedIn,
+      userID: store.getState().userID,
+      name: store.getState().name,
+      picture: store.getState().name
     }
   }
 
   responseFacebook = response => {
     console.log(response);
-    this.setState({
+    store.setState({
       isLoggedIn: true,
       userId: response.userID,
       name: response.name,
@@ -29,11 +31,12 @@ export default class Login extends Component {
     })
   }
 
-  render() {
 
-    if (this.state.isLoggedIn === true && this.state.userID !== undefined && this.state.name !== undefined) {
-      return <Redirect to='/home' />
-    }
+  render() {
+    //
+    // if (this.state.isLoggedIn === true && this.state.name !== undefined) {
+    //   return <Redirect to='/home' />
+    // }
 
       let fbContent;
         fbContent = (

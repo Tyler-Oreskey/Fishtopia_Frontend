@@ -4,6 +4,7 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import { GoogleComponent } from 'react-google-location'
 import { Container } from 'reactstrap'
 import { Button, Modal } from 'react-bootstrap'
+import Helmet from 'react-helmet'
 import './styles/MapContainer.css'
 
 import store from '../Store'
@@ -167,6 +168,7 @@ class MapContainer extends Component {
 
     return (
       <div>
+      <Helmet bodyAttributes={{style: 'background : linear-gradient(to right, #141e30, #243b55)'}}/>
           <Container className="maps-container">
           <Button bsStyle="primary" onClick={this.getUserPlacesHandler}>View all posts</Button>
             <div className="col-md-8">
