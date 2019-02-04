@@ -23,7 +23,7 @@ class MapContainer extends Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      userPlaces: [],
+      usersPlaces: [],
       show: store.getState().show,
       showingInfoWindow: false,
       activeMarker: {},
@@ -118,53 +118,38 @@ class MapContainer extends Component {
     ReactDOM.render(React.Children.only(button), document.getElementById("iwc"));
   }
 
-  //get request to grab all the posts from database
-  async componentDidMount() {
-    const postResponse = await fetch(`${process.env.REACT_APP_API_URL}/users_post`, {
-      method: 'GET',
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        'Accept': 'application/JSON',
-        'Content-Type': 'application/json'
-      }
-    })
-    const postJson = await postResponse.json()
-    this.setState({
-      ...this.state,
-      post: postJson
-    })
-    console.log('postjson', postJson);
-  }
-
   //get user markers and display on map
-  getUserPlacesHandler = (postJson) => {
-    const placesArray = []
-    for(const key in postJson){
-      placesArray.push({
-        lat: postJson[key].lat,
-        lng: postJson[key].lng,
-        id: key
+  getUserPlacesHandler = () => {
+    fetch(`${process.env.REACT_APP_API_URL}/users_post`)
+    .then(res => res.json())
+    .then(parsedRes => {
+      console.log(parsedRes);
+      const placesArray = []
+      for(const key in parsedRes){
+        placesArray.push({
+          lat: parsedRes[key].lat,
+          lng: parsedRes[key].lng,
+          id: key
+        })
+      }
+      this.setState({
+        usersPlaces: placesArray
       })
-    }
-    console.log('placesarray', placesArray);
-    this.setState({
-      userPlaces: placesArray
+      console.log('userPlaces', this.state.usersPlaces);
     })
+    .catch(err => console.log(err))
   }
 
   render() {
-
-    const showModal = store.getState().show
     const { markers } = this.state;
     const { position } = markers[0];
     const { lat, lng } = position;
 
-    //dynamically create markers to be loaded onto maps using lat and lng pulled from user submission
-    const userMarker = this.state.userPlaces.map(userPlace => (
+    // dynamically create markers to be loaded onto maps using lat and lng pulled from user submission
+    const usersMarkers = this.state.usersPlaces.map(userPlace => (
       <Map.Marker coordinate={userPlace} key={userPlace.id} />
     ))
+
 
     return (
       <div>
@@ -199,7 +184,6 @@ class MapContainer extends Component {
                           lat,
                           lng,
                         }}
-
                         draggable={true}
                         icon={{
                           url: 'https://maps.google.com/mapfiles/kml/shapes/fishing.png',
@@ -221,10 +205,8 @@ class MapContainer extends Component {
                       >
                       <div id="iwc" />
                     </InfoWindow>
-
-                    {userMarker}
+                    {usersMarkers}
                   </Map>
-
               </div>
             </div>
           </Container>

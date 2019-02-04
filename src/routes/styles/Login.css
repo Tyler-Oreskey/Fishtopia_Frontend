@@ -22,33 +22,30 @@
   width: 100%;
 }
 .fbButton{
+  padding-top: 5px;
   text-align: center;
 }
 .big-text{
+  padding-top: 0px;
   margin: 0 auto;
   text-align: center;
-  font-size: 100px;
+  font-size: 80px;
 }
 .small-text{
-  padding-top: 15px;
+  padding-top: 5px;
   margin: 0 auto;
   text-align: center;
-  font-size: 60px;
-}
-.login-text{
-  padding-top: 10px;
-  padding-bottom: 20px;
-  margin: 0 auto;
-  text-align: center;
-  font-size: 30px;
+  font-size: 40px;
 }
 .carousel-inner{
   margin: auto;
+  width: 70%;
+  height:100%;
 }
 .carousel{
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 450px;
+  height: 50%;
 }

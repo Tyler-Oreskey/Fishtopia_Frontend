@@ -10,7 +10,7 @@ const Footer = () => {
         <MDBRow>
             <ul className="footer-content">
               <li className="list-unstyled">
-                <NavLink to="/privacypolicy" style={{ textDecoration: 'none', fontSize: '15px' }} className="links">Privacy Policy</NavLink>
+                <NavLink to="/privacypolicy" style={{ textDecoration: 'none', fontSize: '15px' }} className="privacy">Privacy Policy</NavLink>
               </li>
               <div className="footer-copyright text-center py-3">
                   &copy; {new Date().getFullYear()} Copyright: Fishtopia

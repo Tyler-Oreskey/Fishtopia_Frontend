@@ -69,7 +69,6 @@ export default class Login extends Component {
             <div className="fishtopia-intro">
               <h1 className="big-text">Fishtopia</h1>
               <h2 className="small-text">Where Fishermen Catch Their Dreams</h2>
-              <p className="login-text">Please login with Facebook to get started</p>
             </div>
             <div className="fbButton">
               {fbContent}

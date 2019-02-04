@@ -26,7 +26,7 @@ class Header extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
               <NavLink to="/home" style={{ textDecoration: 'none' }} className="links">Home</NavLink>
-              <NavLink to="/gmaps" style={{ textDecoration: 'none' }} className="links">Post a Fish</NavLink>
+              <NavLink to="/gmaps" style={{ textDecoration: 'none' }} className="links">Map</NavLink>
             <Nav pullRight>
               <NavLink to="/login" style={{ textDecoration: 'none' }} className="links">Logout</NavLink>
             </Nav>
