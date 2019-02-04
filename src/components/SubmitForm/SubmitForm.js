@@ -25,7 +25,6 @@ class SubmitForm extends Component {
       wet_size: null,
       month: '',
       day: null,
-      fish_pic: '',
       comments: '',
       lat: this.props.position.lat,
       lng: this.props.position.lng,
@@ -297,17 +296,6 @@ handleDay = (e) => {
 }
 
 //handle month selection
-handleFishPic = (e) => {
-  if (!e.target.value) {
-    return ''
-  }else {
-    this.setState({
-      fish_pic: e.target.value
-    })
-  }
-}
-
-//handle month selection
 handleComments = (e) => {
   if (!e.target.value) {
     return ''
@@ -367,37 +355,34 @@ handleComments = (e) => {
     return (
       <Container className='form-container'>
         <form>
-          <h1>Submit Your Fish!</h1>
-            <ControlLabel>First Name</ControlLabel>
+          <h1 className="submitYourFish">Submit Your Fish!</h1>
             <FormControl
               id="formControlsName"
               type="text"
               label="First Name"
-              placeholder="Enter Name"
+              placeholder="Enter First Name"
               onChange={this.handleName}
               value={this.state.name}
             />
 
             <div className="spacing form">
-              <ControlLabel>Select Fish Caught</ControlLabel>
               <select className="fish form-control" value={this.state.value} onChange={this.handleFishCaught}>
-              <option value='' disabled selected>Select Fish</option>
+              <option value='' disabled selected>Select Fish Caught</option>
                 {listFish}
               </select>
             </div>
 
-            <ControlLabel>Fish Size (inches)</ControlLabel>
             <FormControl
+              style={{'margin-top': '10px'}}
               id="formControlsFishSize"
               type="number"
               label="Fish Size"
-              placeholder="Fish Size"
+              placeholder="Fish Size (inches)"
               onChange={this.handleFishSize}
               value={this.state.value}
             />
 
-            <div className="spacing">
-              <ControlLabel>Select Fishing Type</ControlLabel>
+            <div className="spacing" style={{'margin-top': '10px'}}>
               <FormControl componentClass="select" placeholder="select" onChange={this.handleFishingType}>
                 <option value='' disabled selected>Select Fishing Type</option>
                 <option value='Spin Fishing'>Spin Fishing</option>
@@ -405,16 +390,15 @@ handleComments = (e) => {
               </FormControl>
             </div>
 
-            <div className="dry">
-              <ControlLabel>Dry Fly</ControlLabel>
+            <div className="dry" style={{'margin-top': '10px'}}>
                 <select className="dry form-control" value={this.state.value} onChange={this.handleDryFly}>
-                <option value='' disabled selected>Select Dry Fly</option>
+                <option value='' disabled selected>Dry Fly Used (if any)</option>
                   {listDry}
                 </select>
             </div>
 
-            <ControlLabel>Dry Fly Size</ControlLabel>
             <FormControl
+              style={{'margin-top': '10px'}}
               id="formControlsDryFlySize"
               type="number"
               label="Dry Fly Size"
@@ -423,16 +407,15 @@ handleComments = (e) => {
               value={this.state.value}
             />
 
-            <div className="wet">
-              <ControlLabel>Wet Fly</ControlLabel>
+            <div className="wet" style={{'margin-top': '10px'}}>
                 <select className="wet form-control" value={this.state.value} onChange={this.handleWetFly}>
-                <option value='' disabled selected>Select Wet Fly</option>
+                <option value='' disabled selected>Wet Fly Used (if any)</option>
                   {listWet}
                 </select>
             </div>
 
-            <ControlLabel>Wet Fly Size</ControlLabel>
             <FormControl
+              style={{'margin-top': '10px'}}
               id="formControlsWetFlySize"
               type="number"
               label="Wet Fly Size"
@@ -441,35 +424,24 @@ handleComments = (e) => {
               value={this.state.value}
             />
 
-            <div className="date">
-              <ControlLabel>Month</ControlLabel>
+            <div className="month" style={{'margin-top': '10px'}}>
                 <select className="date form-control" value={this.state.value} onChange={this.handleMonth}>
-                <option value='' disabled selected>Select Month</option>
+                <option value='' disabled selected>Select Month Caught</option>
                   {listMonths}
                 </select>
+              </div>
 
-              <ControlLabel>Day</ControlLabel>
+              <div className="day" style={{'margin-top': '10px'}}>
                 <select className="date form-control" value={this.state.value} onChange={this.handleDay}>
-                <option value='' disabled selected>Select Day</option>
+                <option value='' disabled selected>Select Day Caught</option>
                   {listDays}
                 </select>
             </div>
 
             <div className="spacing">
-              <ControlLabel>Picture Of Fish</ControlLabel>
-                <FormControl
-                  id="formControlsFile"
-                  type="file"
-                  label="File"
-                  onChange={this.handleFishPic}
-                />
-            </div>
-
-            <div className="spacing">
-              <ControlLabel>Comments</ControlLabel>
               <FormControl componentClass="textarea" onChange={this.handleComments} placeholder="comments 255 characters max" />
             </div>
-            <Button bsStyle="primary" onClick={this.onFormSubmit}>Submit</Button>
+            <Button className="submit" bsStyle="success" onClick={this.onFormSubmit}>Submit</Button>
           </form>
         </Container>
     );

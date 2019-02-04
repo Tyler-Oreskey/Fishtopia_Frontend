@@ -239,12 +239,23 @@ class MapContainer extends Component {
 
           <div className="modal">
           <Modal show={this.state.show} onHide={this.handleClose}>
-              <Modal.Header closeButton>
+              <Modal.Header closeButton
+              style={{
+                'background': 'linear-gradient(to right, #232526, #414345)'
+              }}>
                 <Modal.Title>Fish Submission</Modal.Title>
               </Modal.Header>
-              <Modal.Body><SubmitForm position={position} show={this.state.show}/></Modal.Body>
-              <Modal.Footer>
-                <Button bsStyle="secondary" onClick={this.handleClose}>
+              <Modal.Body
+              style={{
+                'background': 'linear-gradient(to right, #373b44, #4286f4)'
+              }}>
+              <SubmitForm position={position} show={this.state.show}/></Modal.Body>
+              <Modal.Footer
+              style={{
+                'background': 'linear-gradient(to right, #232526, #414345)'
+              }}>
+              >
+                <Button className="submit" bsStyle="secondary" onClick={this.handleClose}>
                   Close
                 </Button>
               </Modal.Footer>
