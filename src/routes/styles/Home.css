@@ -1,5 +1,46 @@
+body{
+  background-color: linear-gradient(to right, #f0f2f0, #000c40);
+}
 .carousel-inner{
   margin: auto;
-  max-width: 900px !important;
-  max-height: 480px !important;
+  width: 70%;
+  height:100%;
+}
+.carousel{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.welcome{
+  position: absolute;
+  height:37%;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  border: 4px solid coral;
+  -webkit-animation: mymove 5s infinite; /* Safari 4.0 - 8.0 */
+  animation: mymove 5s infinite;
+}
+
+@-webkit-keyframes mymove {
+  50% {border-color: lightblue;}
+}
+
+@keyframes mymove {
+  50% {border-color: lightblue;}
+}
+.welcome-title{
+  margin: 0 auto;
+  text-align: center;
+  font-size: 50px;
+  padding-top: 5px;
+  color: #1E90FF;
+}
+.welcome-text{
+  margin: 0 auto;
+  text-align: center;
+  font-size: 25px;
+  padding-top: 10px;
+  color: white;
 }

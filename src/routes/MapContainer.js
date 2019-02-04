@@ -22,6 +22,7 @@ class MapContainer extends Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
+      userPlaces: [],
       show: store.getState().show,
       showingInfoWindow: false,
       activeMarker: {},
@@ -33,7 +34,8 @@ class MapContainer extends Component {
             lng: -105.7820674,
           }
         }
-      ]
+      ],
+      zoom: 4
     };
   }
 
@@ -47,29 +49,6 @@ class MapContainer extends Component {
     store.setState({ handleShow: this.handleShow });
   }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  //get request to grab all the posts from database
-  async componentDidMount() {
-    const postResponse = await fetch(`${process.env.REACT_APP_API_URL}/users_post`, {
-      method: 'GET',
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        'Accept': 'application/JSON',
-        'Content-Type': 'application/json'
-      }
-    })
-    const postJson = await postResponse.json()
-    this.setState({
-      ...this.state,
-      post: postJson
-    })
-    console.log(postJson);
-  }
 
 
   // grab users location after selection and set it to state
@@ -84,7 +63,7 @@ class MapContainer extends Component {
           },
         }
       ],
-      zoom: 12,
+      zoom: 8,
     })
   }
 
@@ -132,22 +111,64 @@ class MapContainer extends Component {
     this.setState({ show: true });
   }
 
-
+  //allows for event listener to be placed within info window
   windowHasOpened(props, e) {
     const button = (<Button bsStyle="primary" onClick={this.handleShow}>Post a Fish</Button>);
     ReactDOM.render(React.Children.only(button), document.getElementById("iwc"));
   }
 
+  //get request to grab all the posts from database
+  async componentDidMount() {
+    const postResponse = await fetch(`${process.env.REACT_APP_API_URL}/users_post`, {
+      method: 'GET',
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        'Accept': 'application/JSON',
+        'Content-Type': 'application/json'
+      }
+    })
+    const postJson = await postResponse.json()
+    this.setState({
+      ...this.state,
+      post: postJson
+    })
+    console.log('postjson', postJson);
+  }
+
+  //get user markers and display on map
+  getUserPlacesHandler = (postJson) => {
+    const placesArray = []
+    for(const key in postJson){
+      placesArray.push({
+        lat: postJson[key].lat,
+        lng: postJson[key].lng,
+        id: key
+      })
+    }
+    console.log('placesarray', placesArray);
+    this.setState({
+      userPlaces: placesArray
+    })
+  }
+
   render() {
-    console.log('show', store.getState().show);
+
     const showModal = store.getState().show
     const { markers } = this.state;
     const { position } = markers[0];
     const { lat, lng } = position;
 
+    //dynamically create markers to be loaded onto maps using lat and lng pulled from user submission
+    const userMarker = this.state.userPlaces.map(userPlace => (
+      <Map.Marker coordinate={userPlace} key={userPlace.id} />
+    ))
+
     return (
       <div>
           <Container className="maps-container">
+          <Button bsStyle="primary" onClick={this.getUserPlacesHandler}>View all posts</Button>
             <div className="col-md-8">
                   <div className="input">
                     <GoogleComponent
@@ -166,7 +187,7 @@ class MapContainer extends Component {
                         lat,
                         lng
                       }}
-                      zoom={4}
+                      zoom={this.state.zoom}
                       onClick={this.onMapClicked}
                     >
                     {this.state.markers.map((marker, index) =>
@@ -176,6 +197,7 @@ class MapContainer extends Component {
                           lat,
                           lng,
                         }}
+
                         draggable={true}
                         icon={{
                           url: 'https://maps.google.com/mapfiles/kml/shapes/fishing.png',
@@ -197,6 +219,8 @@ class MapContainer extends Component {
                       >
                       <div id="iwc" />
                     </InfoWindow>
+
+                    {userMarker}
                   </Map>
 
               </div>

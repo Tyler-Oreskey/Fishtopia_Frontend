@@ -21,3 +21,24 @@
   bottom: 0;
   width: 100%;
 }
+.fbButton{
+  text-align: center;
+}
+.big-text{
+  margin: 0 auto;
+  text-align: center;
+  font-size: 100px;
+}
+.small-text{
+  padding-top: 15px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 60px;
+}
+.login-text{
+  padding-top: 10px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 30px;
+}

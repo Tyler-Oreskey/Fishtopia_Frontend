@@ -65,10 +65,6 @@ class SubmitForm extends Component {
     store.setState({ handleClose: this.handleClose });
   }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
   // get request to grab all the fish from databse
   async componentDidMount() {
     const fishResponse = await fetch(`${process.env.REACT_APP_API_URL}/fish`, {
@@ -135,23 +131,6 @@ class SubmitForm extends Component {
     this.setState({
       ...this.state,
       users: usersJson
-    })
-
-    //get users_posts from databse
-    const usersPostsResponse = await fetch(`${process.env.REACT_APP_API_URL}/users_post`, {
-      method: 'GET',
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        'Accept': 'application/JSON',
-        'Content-Type': 'application/json'
-      }
-    })
-    const usersPostsJson = await usersPostsResponse.json()
-    this.setState({
-      ...this.state,
-      users_post: usersPostsJson
     })
   }
 
