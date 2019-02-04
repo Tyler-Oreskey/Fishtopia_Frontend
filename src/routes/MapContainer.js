@@ -48,9 +48,8 @@ class MapContainer extends Component {
       })
     });
     store.setState({ handleShow: this.handleShow });
+    this.getUserPlacesHandler()
   }
-
-
 
   // grab users location after selection and set it to state
   searchLocation = (e) => {
@@ -180,13 +179,7 @@ class MapContainer extends Component {
               <li>From here you can move the marker anywhere you like.</li>
               <li>Once you are satisfied with your marker placement, click on the fish marker.</li>
               <li>A submit form will open up and you just fill in the fields.</li>
-              <li>To view other users posts click
-              <Button bsStyle="primary"
-                className="userPostButton"
-                onClick={this.getUserPlacesHandler}>
-                here
-              </Button>
-              </li>
+              <li>To view other users posts click</li>
             </ol>
 
           </Container>

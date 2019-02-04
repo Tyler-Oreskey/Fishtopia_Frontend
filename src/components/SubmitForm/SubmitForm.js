@@ -164,17 +164,22 @@ class SubmitForm extends Component {
 
   const json = await response.json()
   console.log(json)
-  this.onSubmitSucess(response)
 }
 
 //give user success notification if successful post
 onSubmitSucess = (response) => {
   if (response.status >= 200 && response.status <= 299) {
     this.handleClose()
-    setTimeout( function ( ) { alert( "Your fish has been submitted!!!" ); }, 1000 )
+    window.location.reload();
+    this.handleUserSuccess()
   }else {
     throw "There was an error attempting to submit your post";
   }
+}
+
+//give user a notification after submission and reload
+handleUserSuccess = () => {
+  setTimeout( function ( ) { alert( "Your fish has been submitted!!!" ); }, 1000 )
 }
 
 //handle modal close after submit
@@ -356,7 +361,7 @@ handleComments = (e) => {
         <form>
           <h1 className="submitYourFish">Submit Your Fish!</h1>
             <FormControl
-              
+
               id="formControlsName"
               type="text"
               label="First Name"
