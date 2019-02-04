@@ -19,7 +19,7 @@ body{
   width: 100%;
   margin: 0 auto;
   display: flex;
-  border: 4px solid coral;
+  border: 2px solid coral;
   -webkit-animation: mymove 5s infinite; /* Safari 4.0 - 8.0 */
   animation: mymove 5s infinite;
 }

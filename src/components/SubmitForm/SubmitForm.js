@@ -356,6 +356,7 @@ handleComments = (e) => {
         <form>
           <h1 className="submitYourFish">Submit Your Fish!</h1>
             <FormControl
+              
               id="formControlsName"
               type="text"
               label="First Name"
@@ -365,13 +366,14 @@ handleComments = (e) => {
             />
 
             <div className="spacing form">
-              <select className="fish form-control" value={this.state.value} onChange={this.handleFishCaught}>
+              <select className="fish form-control" value={this.state.value}  onChange={this.handleFishCaught}>
               <option value='' disabled selected>Select Fish Caught</option>
                 {listFish}
               </select>
             </div>
 
             <FormControl
+
               style={{'margin-top': '10px'}}
               id="formControlsFishSize"
               type="number" min="0"
@@ -382,7 +384,7 @@ handleComments = (e) => {
             />
 
             <div className="spacing" style={{'margin-top': '10px'}}>
-              <FormControl componentClass="select" placeholder="select" onChange={this.handleFishingType}>
+              <FormControl componentClass="select" placeholder="select"  onChange={this.handleFishingType}>
                 <option value='' disabled selected>Select Fishing Type</option>
                 <option value='Spin Fishing'>Spin Fishing</option>
                 <option value='Fly Fishing'>Fly Fishing</option>
@@ -423,14 +425,14 @@ handleComments = (e) => {
               value={this.state.value}
             />
 
-            <div className="month" style={{'margin-top': '10px'}}>
+            <div className="month"  style={{'margin-top': '10px'}}>
                 <select className="date form-control" value={this.state.value} onChange={this.handleMonth}>
                 <option value='' disabled selected>Select Month Caught</option>
                   {listMonths}
                 </select>
               </div>
 
-              <div className="day" style={{'margin-top': '10px'}}>
+              <div className="day"  style={{'margin-top': '10px'}}>
                 <select className="date form-control" value={this.state.value} onChange={this.handleDay}>
                 <option value='' disabled selected>Select Day Caught</option>
                   {listDays}

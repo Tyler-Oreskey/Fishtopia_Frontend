@@ -127,15 +127,17 @@ class MapContainer extends Component {
       const placesArray = []
       for(const key in parsedRes){
         placesArray.push({
-          lat: parsedRes[key].lat,
-          lng: parsedRes[key].lng,
+          position: {
+            lat: parsedRes[key].lat,
+            lng: parsedRes[key].lng,
+          },
           id: key
         })
       }
       this.setState({
         usersPlaces: placesArray
       })
-      console.log('userPlaces', this.state.usersPlaces);
+      console.log('usersPlaces', this.state.usersPlaces);
     })
     .catch(err => console.log(err))
   }
@@ -147,8 +149,20 @@ class MapContainer extends Component {
 
     // dynamically create markers to be loaded onto maps using lat and lng pulled from user submission
     const usersMarkers = this.state.usersPlaces.map(userPlace => (
-      <Map.Marker coordinate={userPlace} key={userPlace.id} />
+      <Marker
+        key={userPlace.id}
+        position={userPlace.position}
+        draggable={true}
+        icon={{
+          url: 'https://maps.google.com/mapfiles/kml/shapes/fishing.png',
+          scaledSize: new this.props.google.maps.Size(30, 30), // scaled size
+          origin: new this.props.google.maps.Point(0,0), // origin
+          anchor: new this.props.google.maps.Point(0, 0)
+        }}
+      />
     ))
+
+    console.log('usersmarkers',usersMarkers);
 
 
     return (
@@ -160,7 +174,6 @@ class MapContainer extends Component {
               'background': 'linear-gradient(to right, #283048, #859398)'
             }}>
           >
-
 
           <h1 className="post-title">Posting</h1>
             <ol>
@@ -203,6 +216,7 @@ class MapContainer extends Component {
                       zoom={this.state.zoom}
                       onClick={this.onMapClicked}
                     >
+                    {usersMarkers}
                     {this.state.markers.map((marker, index) =>
                       <Marker
                         key={index}
@@ -231,7 +245,6 @@ class MapContainer extends Component {
                       >
                       <div id="iwc" />
                     </InfoWindow>
-                    {usersMarkers}
                   </Map>
               </div>
             </div>

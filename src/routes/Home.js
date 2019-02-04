@@ -18,7 +18,6 @@ class Home extends Component {
     }
   }
 
-
   onRedirect = () => {
     this.setState({
       toGooglePage: true
@@ -46,7 +45,7 @@ class Home extends Component {
                   'background': 'linear-gradient(to right, #000000, #434343)'
                 }}>
                 <Container>
-                <h1 className="welcome-title">Welcome to Fishtopia (users name)!</h1>
+                <h1 className="welcome-title">Welcome to Fishtopia {this.state.name}!</h1>
                 <p className="welcome-text">Fishtopia cares about fellow fishermen and their struggle to find good areas to fish in an unfamiliar environment.
                   Go see what other users have posted and even post your own monster catch using Google Maps <Button bsStyle="primary" onClick={this.onRedirect}>Here</Button>
                 </p>
