@@ -7,14 +7,13 @@ The backend is was built with Node.js, Express.js, PostgreSQL and JOI as middlew
 A video of the application walkthrough can be found here: **https://youtu.be/MLVl4oIc-kE**
 
 here are some screenshots of the application:
-
-![image](https://imgur.com/lIWmKkt)
-![image](https://imgur.com/fNSvFBs)
-![image](https://imgur.com/V4m3adC)
-![image](https://imgur.com/aPIGZn4)
-![image](https://imgur.com/gfFQdnp)
-![image](https://imgur.com/qWIu60y)
-![image](https://imgur.com/CH09Z5G)
-![image](https://imgur.com/SCduAGu)
-![image](https://imgur.com/81ZC087)
-![image](https://imgur.com/Sipxe0d)
+![Alt text](https://imgur.com/lIWmKkt "Login Page")
+![Alt text](https://imgur.com/fNSvFBs "Home Page")
+![Alt text](https://imgur.com/V4m3adC "Maps Page")
+![Alt text](https://imgur.com/aPIGZn4 "Searching Location")
+![Alt text](https://imgur.com/gfFQdnp "Dragging the pin")
+![Alt text](https://imgur.com/qWIu60y "Clicking the post button")
+![Alt text](https://imgur.com/CH09Z5G "Form")
+![Alt text](https://imgur.com/SCduAGu "Form Submission")
+![Alt text](https://imgur.com/81ZC087 "Submitted form is now a fish pin")
+![Alt text](https://imgur.com/Sipxe0d "Submitted form elements inside the info window")
