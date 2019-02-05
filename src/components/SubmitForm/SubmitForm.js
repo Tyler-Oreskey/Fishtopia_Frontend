@@ -155,7 +155,7 @@ class SubmitForm extends Component {
       wet_fly: this.state.wet_fly,
       wet_size: this.state.wet_size,
       month: this.state.month,
-      day: this.state.dat,
+      day: this.state.day,
       comments: this.state.comments,
       lat: this.state.lat,
       lng: this.state.lng
@@ -312,7 +312,7 @@ handleComments = (e) => {
 }
 
   render() {
-    console.log('show', this.props.show);
+    console.log('fish name', this.state.fish_name);
 
     const position = this.props.position
     const { lat, lng } = position
@@ -329,26 +329,22 @@ handleComments = (e) => {
 
     //map over fish array from API to dynamically create selection items
     let listFish = this.state.fish.map(fish => (
-      <option key={fish.id} value={fish.id}>{fish.fish_name}</option>
-    ));
-
-    let fishID = this.state.fish.map(fish => (
-      <option key={fish.id} value={fish.id}>{fish.id}</option>
+      <option key={fish.id} value={fish.fish_name}>{fish.fish_name}</option>
     ));
 
     //map over dry array from API to dynamically create selection items
     let listDry = this.state.dry.map(dry => (
-      <option key={dry.id} value={dry.id}>{dry.name}</option>
+      <option key={dry.id} value={dry.name}>{dry.name}</option>
     ));
 
     //map over wet array from API to dynamically create selection items
     let listWet = this.state.wet.map(wet => (
-      <option key={wet.id} value={wet.id}>{wet.name}</option>
+      <option key={wet.id} value={wet.name}>{wet.name}</option>
     ));
 
     //map over months object and dynamically create selection items
     let listMonths = this.state.months.map(month => (
-      <option key={month.id} value={month.id}>{month.name}</option>
+      <option key={month.id} value={month.name}>{month.name}</option>
     ));
 
     //loop over an array to display days in a month

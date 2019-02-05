@@ -135,6 +135,7 @@ class MapContainer extends Component {
             lng: parsedRes[key].lng,
           },
           name: parsedRes[key].name,
+          fish_name: parsedRes[key].fish_name,
           fish_size: parsedRes[key].fish_size,
           fishing_type: parsedRes[key].fishing_type,
           dry_fly: parsedRes[key].dry_fly,
@@ -164,8 +165,17 @@ class MapContainer extends Component {
         visible={this.state.showingInfoWindow && this.state.activeUserPlaceId === userPlace.id}
       >
       <div>
-        <span>{userPlace.name}</span>
-        <span>{userPlace.fish_size}</span>
+        <span ClassName='label'>{'Name: '}{userPlace.name}</span><br /><br />
+        <span ClassName='label'>{'Fish caught: '}{userPlace.fish_name}</span><br /><br />
+        <span ClassName='label'>{'Fish size: '}{userPlace.fish_size}{' inches'}</span><br /><br />
+        <span ClassName='label'>{'Fishing type: '}{userPlace.fishing_type}</span><br /><br />
+        <span ClassName='label'>{'Dry fly used: '}{userPlace.dry_fly}</span><br /><br />
+        <span ClassName='label'>{'Dry fly size: '}{userPlace.dry_size}</span><br /><br />
+        <span ClassName='label'>{'Wet fly used: '}{userPlace.wet_fly}</span><br /><br />
+        <span ClassName='label'>{'Wet fly size: '}{userPlace.wet_size}</span><br /><br />
+        <span ClassName='label'>{'Month: '}{userPlace.month}</span><br /><br />
+        <span ClassName='label'>{'Day: '}{userPlace.day}</span><br /><br />
+        <span ClassName='label'>{'Comments: '}{userPlace.comments}</span>
       </div>
     </InfoWindow>
     ))
