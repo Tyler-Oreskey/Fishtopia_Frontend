@@ -28,6 +28,7 @@ class MapContainer extends Component {
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {},
+      openWindow: {},
       markers: [
         {
           position: {
@@ -87,17 +88,19 @@ class MapContainer extends Component {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
-        activeMarker: null
+        activeMarker: null,
+        openWindow: null,
       })
     }
   };
 
   //show info window when marker is clicked
-  onMarkerClick = (props, marker, e) => {
+  onMarkerClick = (userPlaceId) => (props, marker, e) => {
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
-      showingInfoWindow: true
+      showingInfoWindow: true,
+      activeUserPlaceId: userPlaceId,
     });
   }
 
@@ -122,14 +125,25 @@ class MapContainer extends Component {
     fetch(`${process.env.REACT_APP_API_URL}/users_post`)
     .then(res => res.json())
     .then(parsedRes => {
-      console.log(parsedRes);
+
       const placesArray = []
+
       for(const key in parsedRes){
         placesArray.push({
           position: {
             lat: parsedRes[key].lat,
             lng: parsedRes[key].lng,
           },
+          name: parsedRes[key].name,
+          fish_size: parsedRes[key].fish_size,
+          fishing_type: parsedRes[key].fishing_type,
+          dry_fly: parsedRes[key].dry_fly,
+          dry_size: parsedRes[key].dry_size,
+          wet_fly: parsedRes[key].wet_fly,
+          wet_size: parsedRes[key].wet_size,
+          month: parsedRes[key].month,
+          day: parsedRes[key].day,
+          comments: parsedRes[key].comments,
           id: key
         })
       }
@@ -141,6 +155,22 @@ class MapContainer extends Component {
     .catch(err => console.log(err))
   }
 
+  renderInfoWindows = () => {
+    return this.state.usersPlaces.map(userPlace => (
+      <InfoWindow
+        key={userPlace.id}
+        marker={this.state.activeMarker}
+        onClose={this.onMarkerInfoWindowClose}
+        visible={this.state.showingInfoWindow && this.state.activeUserPlaceId === userPlace.id}
+      >
+      <div>
+        <span>{userPlace.name}</span>
+        <span>{userPlace.fish_size}</span>
+      </div>
+    </InfoWindow>
+    ))
+  }
+
   render() {
     const { markers } = this.state;
     const { position } = markers[0];
@@ -148,20 +178,19 @@ class MapContainer extends Component {
 
     // dynamically create markers to be loaded onto maps using lat and lng pulled from user submission
     const usersMarkers = this.state.usersPlaces.map(userPlace => (
-      <Marker
-        key={userPlace.id}
-        position={userPlace.position}
-        draggable={false}
-        icon={{
-          url: 'https://maps.google.com/mapfiles/kml/shapes/fishing.png',
-          scaledSize: new this.props.google.maps.Size(30, 30), // scaled size
-          origin: new this.props.google.maps.Point(0,0), // origin
-          anchor: new this.props.google.maps.Point(0, 0)
-        }}
-      />
+        <Marker
+          key={userPlace.id}
+          position={userPlace.position}
+          draggable={false}
+          onClick={this.onMarkerClick(userPlace.id)}
+          icon={{
+            url: 'https://maps.google.com/mapfiles/kml/shapes/fishing.png',
+            scaledSize: new this.props.google.maps.Size(30, 30), // scaled size
+            origin: new this.props.google.maps.Point(0,0), // origin
+            anchor: new this.props.google.maps.Point(0, 0)
+          }}
+        />
     ))
-
-
     return (
       <div>
       <Helmet bodyAttributes={{style: 'background : linear-gradient(to right, #141e30, #243b55)'}}/>
@@ -207,6 +236,7 @@ class MapContainer extends Component {
                       onClick={this.onMapClicked}
                     >
                     {usersMarkers}
+                    {this.renderInfoWindows()}
                     {this.state.markers.map((marker, index) =>
                       <Marker
                         key={index}
@@ -222,7 +252,7 @@ class MapContainer extends Component {
                           anchor: new this.props.google.maps.Point(0, 0)
                         }}
                         onDragend={(e, map, coord) => this.onMarkerMoved(coord, index)}
-                        onClick={this.onMarkerClick}
+                        onClick={this.onMarkerClick(null)}
                         name={marker.place}
                       />
                     )}
@@ -231,7 +261,7 @@ class MapContainer extends Component {
                         marker={this.state.activeMarker}
                         onOpen={e => {this.windowHasOpened(this.props, e)}}
                         onClose={this.onInfoWindowClose}
-                        visible={this.state.showingInfoWindow}
+                        visible={this.state.showingInfoWindow && !this.state.activeUserPlaceId}
                       >
                       <div id="iwc" />
                     </InfoWindow>
