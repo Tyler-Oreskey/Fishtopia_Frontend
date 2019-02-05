@@ -7,7 +7,7 @@ The backend is was built with Node.js, Express.js, PostgreSQL and JOI as middlew
 A video of the application walkthrough can be found here: **https://youtu.be/MLVl4oIc-kE**
 
 here are some screenshots of the application:
-![Alt text](https://imgur.com/lIWmKkt "Login Page")
+![Alt text](https://imgur.com/lIWmKkt)
 ![Alt text](https://imgur.com/fNSvFBs "Home Page")
 ![Alt text](https://imgur.com/V4m3adC "Maps Page")
 ![Alt text](https://imgur.com/aPIGZn4 "Searching Location")
